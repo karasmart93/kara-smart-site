@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kara Smart | L&amp;D Transformation &amp; AI-Enhanced Learning Solutions</title>
+<meta name="description" content="L&amp;D operations consultant specializing in agile transformation and AI-powered learning systems. Serving Houston's energy, healthcare, and tech sectors.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --slate-900: #0f172a;
+    --slate-800: #1e293b;
+    --slate-700: #334155;
+    --slate-600: #475569;
+    --slate-400: #94a3b8;
+    --slate-300: #cbd5e1;
+    --slate-200: #e2e8f0;
+    --slate-100: #f1f5f9;
+    --slate-50:  #f8fafc;
+    --amber-600: #d97706;
+    --amber-500: #f59e0b;
+    --amber-400: #fbbf24;
+    --green-600: #059669;
+    --green-500: #10b981;
+    --green-50:  #ecfdf5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    line-height: 1.6;
+    color: var(--slate-700);
+    background: var(--slate-50);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .container      { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .container-wide { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+
+  /* -- NAV -- */
+  nav {
+    background: var(--slate-900);
+    border-bottom: 2px solid var(--amber-500);
+    padding: 16px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+  }
+  nav .container { display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Manrope', sans-serif; font-size: 20px; font-weight: 800; color: white; text-decoration: none; letter-spacing: -0.02em; }
+  .logo span { color: var(--amber-500); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { color: var(--slate-300); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; letter-spacing: 0.02em; }
+  .nav-links a:hover { color: var(--amber-500); }
+
+  /* -- HERO -- */
+  .hero {
+    background: linear-gradient(135deg, var(--slate-900) 0%, var(--slate-800) 100%);
+    padding: 120px 0 100px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.015) 2px, rgba(255,255,255,0.015) 4px);
+    pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 900px; }
+  .hero h1 { font-size: 56px; color: white; margin-bottom: 24px; line-height: 1.1; font-weight: 800; }
+  .hero h1 .highlight { color: var(--amber-500); }
+  .hero-subtitle { font-size: 20px; color: var(--slate-300); margin-bottom: 40px; line-height: 1.6; font-weight: 400; }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--amber-500); color: var(--slate-900);
+    padding: 16px 32px; border-radius: 4px; text-decoration: none;
+    font-weight: 700; font-size: 16px; transition: background 0.2s, transform 0.1s; letter-spacing: 0.02em;
+  }
+  .hero-cta:hover { background: var(--amber-400); transform: translateY(-2px); }
+
+  /* -- SECTIONS -- */
+  section { padding: 100px 0; }
+  .section-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--amber-600); margin-bottom: 12px; }
+  .section-title { font-size: 42px; color: var(--slate-900); margin-bottom: 20px; font-weight: 800; }
+  .section-intro { font-size: 18px; color: var(--slate-600); max-width: 800px; margin-bottom: 48px; line-height: 1.7; }
+
+  /* -- CASE STUDY -- */
+  .case-study { background: white; }
+  .case-study-header { background: var(--slate-900); border-left: 4px solid var(--amber-500); padding: 32px; border-radius: 8px; margin-bottom: 40px; }
+  .case-study-header h3 { font-size: 32px; color: white; margin-bottom: 24px; line-height: 1.3; }
+  .case-study-details { background: var(--slate-50); border-radius: 8px; padding: 40px; margin-top: 40px; }
+  .detail-item { margin-bottom: 24px; }
+  .detail-item:last-child { margin-bottom: 0; }
+  .detail-label { font-weight: 700; color: var(--slate-900); margin-bottom: 8px; font-size: 16px; }
+  .detail-text { color: var(--slate-600); font-size: 15px; line-height: 1.7; }
+  .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 48px; }
+  .metric-card { background: var(--green-50); border: 2px solid var(--green-500); border-radius: 8px; padding: 32px; text-align: center; }
+  .metric-number { font-family: 'Manrope', sans-serif; font-size: 56px; font-weight: 800; color: var(--green-600); line-height: 1; margin-bottom: 12px; }
+  .metric-label { font-size: 14px; color: var(--slate-700); font-weight: 500; line-height: 1.4; }
+
+  /* -- AI SECTION -- */
+  .ai-section { background: var(--slate-100); }
+  .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 48px; }
+  .comparison-card { background: white; border-radius: 8px; padding: 32px; border: 2px solid var(--slate-300); }
+  .comparison-card.new { border-color: var(--amber-500); background: #fffbeb; }
+  .comparison-header { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+  .comparison-card .comparison-header { color: var(--slate-600); }
+  .comparison-card.new .comparison-header { color: var(--amber-600); }
+  .comparison-list { list-style: none; }
+  .comparison-list li { padding: 12px 0; border-bottom: 1px solid var(--slate-200); color: var(--slate-700); font-size: 15px; display: flex; align-items: start; gap: 12px; }
+  .comparison-card.new .comparison-list li { border-bottom-color: #fde68a; }
+  .comparison-list li:last-child { border-bottom: none; }
+  .comparison-list li .bullet { flex-shrink: 0; font-weight: 700; }
+  .bullet-x { color: #ef4444; }
+  .bullet-check { color: var(--green-500); }
+
+  /* -- DEMO EMBEDS -- */
+  .demo-embed {
+    background: var(--slate-900); border: 3px solid var(--amber-500);
+    border-radius: 12px; padding: 60px; text-align: center; margin-top: 48px;
+  }
+  .demo-embed + .demo-embed { margin-top: 24px; }
+  .demo-embed h4 { color: var(--amber-500); font-size: 24px; margin-bottom: 16px; }
+  .demo-embed p { color: var(--slate-300); font-size: 16px; margin-bottom: 24px; max-width: 680px; margin-left: auto; margin-right: auto; }
+  .demo-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--amber-500); color: var(--slate-900);
+    padding: 14px 32px; border-radius: 4px; text-decoration: none;
+    font-weight: 700; font-size: 16px; transition: background 0.2s;
+  }
+  .demo-link:hover { background: var(--amber-400); }
+
+  /* -- SERVICES -- */
+  .services { background: white; }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; margin-top: 48px; }
+  .service-card { background: var(--slate-50); border: 2px solid var(--slate-200); border-radius: 8px; padding: 32px; transition: border-color 0.3s, transform 0.3s; }
+  .service-card:hover { border-color: var(--amber-500); transform: translateY(-4px); }
+  .service-icon { font-size: 32px; margin-bottom: 16px; }
+  .service-card h3 { font-size: 20px; color: var(--slate-900); margin-bottom: 12px; }
+  .service-card p { color: var(--slate-600); font-size: 15px; line-height: 1.6; }
+
+  /* -- ABOUT -- */
+  .about { background: var(--slate-900); color: white; }
+  .about .section-label { color: var(--amber-500); }
+  .about .section-title { color: white; }
+  .about-content { max-width: 800px; }
+  .about-text { font-size: 17px; line-height: 1.8; color: var(--slate-300); margin-bottom: 20px; }
+  .about-highlight { background: var(--slate-800); border-left: 4px solid var(--amber-500); padding: 24px; border-radius: 4px; margin: 32px 0; }
+  .about-highlight p { font-size: 18px; color: white; font-weight: 600; }
+  .tags { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .tag { background: var(--slate-800); border: 1px solid var(--slate-700); color: var(--slate-300); padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+
+  /* -- CONTACT -- */
+  .contact { background: var(--slate-100); text-align: center; }
+  .contact-content { max-width: 700px; margin: 0 auto; }
+  .contact-buttons { display: flex; gap: 16px; justify-content: center; margin-top: 32px; flex-wrap: wrap; }
+  .contact-btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px; border-radius: 4px; text-decoration: none; font-weight: 700; font-size: 16px; transition: all 0.2s; }
+  .contact-btn.primary { background: var(--amber-500); color: var(--slate-900); }
+  .contact-btn.primary:hover { background: var(--amber-400); transform: translateY(-2px); }
+  .contact-btn.secondary { background: transparent; border: 2px solid var(--slate-700); color: var(--slate-700); }
+  .contact-btn.secondary:hover { border-color: var(--amber-500); color: var(--amber-600); }
+  .contact-note { margin-top: 32px; font-size: 14px; color: var(--slate-600); }
+
+  /* -- FOOTER -- */
+  footer { background: var(--slate-900); border-top: 2px solid var(--amber-500); padding: 40px 0; text-align: center; }
+  footer p { color: var(--slate-400); font-size: 14px; }
+
+  /* -- ANIMATION -- */
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-in-up { animation: fadeInUp 0.6s ease-out forwards; }
+
+  /* -- RESPONSIVE -- */
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 36px; }
+    .hero-subtitle { font-size: 18px; }
+    .section-title { font-size: 32px; }
+    .comparison-grid { grid-template-columns: 1fr; }
+    .nav-links { gap: 20px; }
+    .metrics-grid { grid-template-columns: 1fr; }
+    section { padding: 60px 0; }
+    .hero { padding: 80px 0 60px; }
+    .demo-embed { padding: 40px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <div class="container">
+    <a href="#" class="logo">Kara<span>Smart</span></a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content fade-in-up">
+      <h1>I transform chaotic L&amp;D operations into <span class="highlight">scalable systems</span> using AI-enhanced solutions.</h1>
+      <p class="hero-subtitle">Led agile transformation at Optum, reducing out-of-scope work by 85%. Now building AI-powered learning solutions for Houston&rsquo;s energy, healthcare, and tech sectors.</p>
+      <a href="#work" class="hero-cta">See My Work &darr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- Case Study -->
+<section class="case-study" id="work">
+  <div class="container">
+    <div class="section-label">Proven Results</div>
+    <h2 class="section-title">The Optum Transformation</h2>
+
+    <div class="case-study-header">
+      <h3>How I reduced out-of-scope work by 85% through agile transformation at Optum</h3>
+    </div>
+
+    <div class="case-study-details">
+      <div class="detail-item">
+        <div class="detail-label">The Problem</div>
+        <div class="detail-text">
+          Optum&rsquo;s L&amp;D team was drowning in ad-hoc requests, unclear intake processes, and constant context-switching. Projects routinely ran over budget. Designers were stressed and burning out. Stakeholders were frustrated by slow turnaround times and inconsistent quality. The team had the talent but lacked the operational framework to scale.
+        </div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">The Solution</div>
+        <div class="detail-text">
+          I designed, trained, and led a complete agile transformation for the team &mdash; implementing Scrum ceremonies, redesigning the intake system from scratch, creating transparent capacity planning tools, and coaching team members on sustainable workflows. This wasn&rsquo;t just process documentation; it was hands-on change management with real buy-in.
+        </div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">The Impact</div>
+        <div class="detail-text">
+          Within months, out-of-scope requests dropped by 85%. Project stress was cut in half based on team surveys. Delivery timelines became predictable. The team transformed from reactive firefighting to proactive, scalable operations. Leadership got visibility. Designers got breathing room. Stakeholders got better results.
+        </div>
+      </div>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-number">85%</div>
+        <div class="metric-label">Reduction in out-of-scope work</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-number">50%</div>
+        <div class="metric-label">Decrease in project stress</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-number">99%</div>
+        <div class="metric-label">Daily standup response rate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI-Enhanced Learning -->
+<section class="ai-section">
+  <div class="container">
+    <div class="section-label">The Future of L&amp;D</div>
+    <h2 class="section-title">AI-Enhanced Learning Solutions</h2>
+    <p class="section-intro">
+      Most L&amp;D consultants are still building courses in Storyline and Rise. I build AI-powered learning systems that adapt, engage, and scale. Here&rsquo;s the difference:
+    </p>
+
+    <div class="comparison-grid">
+      <div class="comparison-card">
+        <div class="comparison-header">
+          <span class="bullet bullet-x">&#10060;</span>
+          <span>Traditional Approach (2024)</span>
+        </div>
+        <ul class="comparison-list">
+          <li><span class="bullet bullet-x">&rarr;</span> Linear navigation &mdash; click &ldquo;Next&rdquo; 47 times</li>
+          <li><span class="bullet bullet-x">&rarr;</span> Same content for every learner</li>
+          <li><span class="bullet bullet-x">&rarr;</span> Quiz at the end as gatekeeper</li>
+          <li><span class="bullet bullet-x">&rarr;</span> No way to ask questions or go deeper</li>
+          <li><span class="bullet bullet-x">&rarr;</span> 30-minute mandatory slog</li>
+        </ul>
+      </div>
+
+      <div class="comparison-card new">
+        <div class="comparison-header">
+          <span class="bullet bullet-check">&#10003;</span>
+          <span>AI-Enhanced Approach (2026)</span>
+        </div>
+        <ul class="comparison-list">
+          <li><span class="bullet bullet-check">&rarr;</span> Conversational AI coach guides the experience</li>
+          <li><span class="bullet bullet-check">&rarr;</span> Personalized scenarios based on responses</li>
+          <li><span class="bullet bullet-check">&rarr;</span> Learning assessed through dialogue, not multiple choice</li>
+          <li><span class="bullet bullet-check">&rarr;</span> Ask any question, get instant expert answers</li>
+          <li><span class="bullet bullet-check">&rarr;</span> Engaging, memorable, effective</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="demo-embed">
+      <h4>&#x1F9BA; Live Example: Dropped Objects Safety Training</h4>
+      <p>I built this AI-powered safety coach for the oil &amp; gas industry. Same learning objectives as a traditional eLearning course &mdash; completely different experience. Try it yourself.</p>
+      <a href="dropped-objects-safety-coach.html" class="demo-link" target="_blank">Launch Interactive Demo &rarr;</a>
+    </div>
+
+    <div class="demo-embed">
+      <h4>&#x2705; Live Example: ReviewSync &mdash; L&amp;D Review &amp; Approval Platform</h4>
+      <p>I built this to solve a universal L&amp;D pain point: the chaotic back-and-forth between Instructional Designers and Subject Matter Experts across disconnected tools. ReviewSync centralizes review rounds, approval status, deadline tracking, and bottleneck visibility &mdash; with separate purpose-built views for IDs and SMEs.</p>
+      <a href="review-tool.html" class="demo-link" target="_blank">Launch ReviewSync Demo &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-label">What I Build</div>
+    <h2 class="section-title">Solutions That Scale</h2>
+    <p class="section-intro">
+      I work with growing companies that need to scale their L&amp;D operations without adding headcount or sacrificing quality. Whether you&rsquo;re struggling with chaotic intake, low training engagement, or outdated tools &mdash; here&rsquo;s what I build:
+    </p>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">&#x1F527;</div>
+        <h3>L&amp;D Operations Transformation</h3>
+        <p>Agile coaching, intake redesign, workflow optimization. Turn chaotic L&amp;D teams into high-performing machines with predictable delivery and sustainable pace.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#x1F916;</div>
+        <h3>AI-Powered Learning Systems</h3>
+        <p>Custom conversational coaches, adaptive learning paths, personalized training experiences that replace cookie-cutter LMS courses. Built from scratch, not templates.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#x1F3AF;</div>
+        <h3>Custom Learning Portals</h3>
+        <p>Onboarding systems, compliance training, performance support tools designed specifically for your organization &mdash; not generic off-the-shelf solutions.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#x1F4CA;</div>
+        <h3>L&amp;D Operations Tools</h3>
+        <p>Intake systems, capacity planning dashboards, project tracking infrastructure &mdash; the operational backbone that makes L&amp;D scalable and measurable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="section-label">Why I&rsquo;m Different</div>
+    <h2 class="section-title">The Rare Combination</h2>
+    <div class="about-content">
+      <p class="about-text">
+        Most L&amp;D consultants fall into two camps: traditional instructional designers who know learning theory but are stuck using outdated tools like Storyline and Rise, or developers and AI enthusiasts who can build cool tech but don&rsquo;t understand instructional design, compliance requirements, or how L&amp;D actually operates in organizations.
+      </p>
+      <div class="about-highlight">
+        <p>I&rsquo;m the rare combination: L&amp;D operations expertise + proven results + AI development capability.</p>
+      </div>
+      <p class="about-text">
+        As a Certified Scrum Master, I transformed how an instructional design team at Optum operated &mdash; reducing chaos, improving morale, and delivering measurable business impact. Now I&rsquo;m applying that same operational thinking to build AI-powered learning solutions that didn&rsquo;t exist two years ago.
+      </p>
+      <p class="about-text">
+        I don&rsquo;t just recommend tools. I build them. I don&rsquo;t just design processes. I lead teams through them. And I don&rsquo;t wait for the market to catch up &mdash; I&rsquo;m building the future of L&amp;D right now.
+      </p>
+      <div class="tags">
+        <span class="tag">Certified Scrum Master</span>
+        <span class="tag">Agile Transformation Leader</span>
+        <span class="tag">AI Developer</span>
+        <span class="tag">Houston-Based</span>
+        <span class="tag">Energy &middot; Healthcare &middot; Tech</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-content">
+      <div class="section-label">Let&rsquo;s Talk</div>
+      <h2 class="section-title">Ready to Transform Your L&amp;D?</h2>
+      <p class="section-intro">
+        Whether you&rsquo;re struggling with chaotic intake processes, looking to build AI-enhanced training, or just want to explore what&rsquo;s possible &mdash; let&rsquo;s have a conversation.
+      </p>
+      <div class="contact-buttons">
+        <a href="mailto:kara@karasmart.com" class="contact-btn primary">
+          <span>&#x1F4E7;</span>
+          <span>kara@karasmart.com</span>
+        </a>
+        <a href="https://www.linkedin.com/in/kara-smart/" target="_blank" class="contact-btn secondary">
+          <span>&#x1F4BC;</span>
+          <span>Connect on LinkedIn</span>
+        </a>
+      </div>
+      <p class="contact-note">Based in Houston &middot; Serving companies nationwide</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p>&copy; 2026 Kara Smart &middot; L&amp;D Transformation &amp; AI-Enhanced Learning Solutions</p>
+  </div>
+</footer>
+
+</body>
+</html>

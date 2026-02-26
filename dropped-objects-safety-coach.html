@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dropped Objects Safety Coach</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --steel: #1a1f2e;
+    --steel-mid: #232b3e;
+    --steel-light: #2d3650;
+    --plate: #0f1319;
+    --amber: #f59e0b;
+    --amber-dim: #d97706;
+    --amber-glow: rgba(245, 158, 11, 0.15);
+    --danger: #ef4444;
+    --safe: #10b981;
+    --text-primary: #e8eaf0;
+    --text-secondary: #8892a4;
+    --text-muted: #4a5568;
+    --border: rgba(255,255,255,0.07);
+    --border-amber: rgba(245, 158, 11, 0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background-color: var(--plate);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* Texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255,255,255,0.008) 2px,
+        rgba(255,255,255,0.008) 4px
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* â”€â”€â”€ HEADER â”€â”€â”€ */
+  .header {
+    background: var(--steel);
+    border-bottom: 2px solid var(--amber);
+    padding: 0 24px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 10;
+    flex-shrink: 0;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .hazard-stripe {
+    width: 28px;
+    height: 28px;
+    background: repeating-linear-gradient(
+      45deg,
+      var(--amber),
+      var(--amber) 4px,
+      var(--plate) 4px,
+      var(--plate) 8px
+    );
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  .header-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+  }
+
+  .header-title span {
+    color: var(--amber);
+  }
+
+  .header-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border: 1px solid var(--text-muted);
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+
+  /* â”€â”€â”€ MAIN LAYOUT â”€â”€â”€ */
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  /* â”€â”€â”€ WELCOME SCREEN â”€â”€â”€ */
+  .welcome-screen {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    animation: fadeIn 0.6s ease;
+  }
+
+  .welcome-card {
+    max-width: 520px;
+    width: 100%;
+  }
+
+  .warning-banner {
+    background: var(--danger);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0;
+    border-radius: 4px 4px 0 0;
+  }
+
+  .warning-banner .icon { font-size: 16px; }
+
+  .warning-banner-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .welcome-body {
+    background: var(--steel);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    padding: 32px;
+  }
+
+  .stat-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .stat-item {
+    flex: 1;
+    background: var(--plate);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber);
+    padding: 14px;
+  }
+
+  .stat-number {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--amber);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+    line-height: 1.3;
+  }
+
+  .welcome-headline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .welcome-sub {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .input-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  .name-input {
+    background: var(--plate);
+    border: 1px solid var(--border);
+    border-bottom: 2px solid var(--amber-dim);
+    color: var(--text-primary);
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    padding: 12px 14px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    border-radius: 2px;
+  }
+
+  .name-input:focus {
+    border-bottom-color: var(--amber);
+    background: var(--steel-mid);
+  }
+
+  .name-input::placeholder { color: var(--text-muted); }
+
+  .start-btn {
+    width: 100%;
+    background: var(--amber);
+    color: var(--plate);
+    border: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    border-radius: 2px;
+  }
+
+  .start-btn:hover { background: #fbbf24; }
+  .start-btn:active { transform: scale(0.99); }
+
+  /* â”€â”€â”€ CHAT SCREEN â”€â”€â”€ */
+  .chat-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  /* Context bar */
+  .context-bar {
+    background: var(--steel-mid);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .worker-tag {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .worker-avatar {
+    width: 30px;
+    height: 30px;
+    background: var(--amber-glow);
+    border: 1px solid var(--border-amber);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--amber);
+  }
+
+  .worker-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .worker-role {
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+
+  .session-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--safe);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  /* Messages area */
+  .messages-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    scroll-behavior: smooth;
+  }
+
+  .messages-area::-webkit-scrollbar { width: 4px; }
+  .messages-area::-webkit-scrollbar-track { background: transparent; }
+  .messages-area::-webkit-scrollbar-thumb { background: var(--steel-light); border-radius: 2px; }
+
+  /* Message bubbles */
+  .message {
+    display: flex;
+    gap: 12px;
+    animation: slideUp 0.3s ease;
+    max-width: 85%;
+  }
+
+  .message.user {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+  }
+
+  .message.coach {
+    align-self: flex-start;
+  }
+
+  .msg-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    align-self: flex-end;
+  }
+
+  .msg-avatar.coach-av {
+    background: var(--amber-glow);
+    border: 1px solid var(--border-amber);
+  }
+
+  .msg-avatar.user-av {
+    background: var(--steel-light);
+    border: 1px solid var(--border);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-secondary);
+  }
+
+  .msg-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .msg-sender {
+    font-size: 10px;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0 4px;
+  }
+
+  .message.user .msg-sender { text-align: right; }
+
+  .msg-bubble {
+    padding: 12px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .message.coach .msg-bubble {
+    background: var(--steel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber);
+    color: var(--text-primary);
+  }
+
+  .message.user .msg-bubble {
+    background: var(--steel-light);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+  }
+
+  /* Scenario prompt chips */
+  .scenario-chips {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+    align-self: flex-start;
+    max-width: 85%;
+    animation: slideUp 0.4s ease 0.1s both;
+  }
+
+  .scenario-label {
+    font-size: 10px;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0 4px;
+  }
+
+  .chips-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chip {
+    background: var(--steel);
+    border: 1px solid var(--border-amber);
+    color: var(--amber);
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+    padding: 8px 14px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    text-align: left;
+    line-height: 1.3;
+  }
+
+  .chip:hover {
+    background: var(--amber-glow);
+    border-color: var(--amber);
+  }
+
+  /* Typing indicator */
+  .typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    align-self: flex-start;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .typing-dots {
+    background: var(--steel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber);
+    padding: 14px 18px;
+    border-radius: 4px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  }
+
+  .typing-dots span {
+    width: 6px;
+    height: 6px;
+    background: var(--amber-dim);
+    border-radius: 50%;
+    animation: typingBounce 1.2s infinite;
+  }
+
+  .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+  /* Input area */
+  .input-area {
+    background: var(--steel);
+    border-top: 1px solid var(--border);
+    padding: 14px 20px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+
+  .chat-input {
+    flex: 1;
+    background: var(--plate);
+    border: 1px solid var(--border);
+    border-bottom: 2px solid var(--steel-light);
+    color: var(--text-primary);
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    padding: 10px 14px;
+    outline: none;
+    resize: none;
+    min-height: 42px;
+    max-height: 100px;
+    border-radius: 2px;
+    transition: border-color 0.2s;
+    line-height: 1.5;
+  }
+
+  .chat-input:focus { border-bottom-color: var(--amber); }
+  .chat-input::placeholder { color: var(--text-muted); }
+
+  .send-btn {
+    background: var(--amber);
+    color: var(--plate);
+    border: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .send-btn:hover { background: #fbbf24; }
+  .send-btn:active { transform: scale(0.95); }
+  .send-btn:disabled { background: var(--text-muted); cursor: not-allowed; }
+
+  /* â”€â”€â”€ SYSTEM MESSAGE â”€â”€â”€ */
+  .system-msg {
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 0;
+  }
+
+  /* â”€â”€â”€ HIDDEN â”€â”€â”€ */
+  .hidden { display: none !important; }
+
+  /* â”€â”€â”€ ANIMATIONS â”€â”€â”€ */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+    30% { transform: translateY(-5px); opacity: 1; }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* â”€â”€â”€ RESPONSIVE â”€â”€â”€ */
+  @media (max-width: 480px) {
+    .stat-row { flex-direction: column; }
+    .welcome-body { padding: 20px; }
+    .message { max-width: 95%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="hazard-stripe"></div>
+    <div class="header-title">Safety <span>Coach</span> AI</div>
+  </div>
+  <div class="header-badge">Dropped Objects Â· HSE Module</div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- WELCOME SCREEN -->
+  <div class="welcome-screen" id="welcomeScreen">
+    <div class="welcome-card">
+      <div class="warning-banner">
+        <span class="icon">âš ï¸</span>
+        <span class="warning-banner-text">High Risk Hazard Awareness Training</span>
+      </div>
+      <div class="welcome-body">
+        <div class="stat-row">
+          <div class="stat-item">
+            <div class="stat-number">50K+</div>
+            <div class="stat-label">recordable incidents per year in the US</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">143</div>
+            <div class="stat-label">workers struck by dropped objects every day</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">of dropped object incidents are preventable</div>
+          </div>
+        </div>
+
+        <h1 class="welcome-headline">Know the Hazard.<br>Prevent the Incident.</h1>
+        <p class="welcome-sub">
+          Your personal AI safety coach will walk you through real-world scenarios,
+          answer your questions, and help you build habits that keep you and your
+          crew safe on site.
+        </p>
+
+        <div class="input-group">
+          <label class="input-label" for="workerName">Your Name</label>
+          <input
+            type="text"
+            id="workerName"
+            class="name-input"
+            placeholder="Enter your name to begin"
+            autocomplete="off"
+          />
+        </div>
+        <button class="start-btn" onclick="startSession()">Begin Safety Training â†’</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAT SCREEN -->
+  <div class="chat-screen hidden" id="chatScreen">
+
+    <!-- Context bar -->
+    <div class="context-bar">
+      <div class="worker-tag">
+        <div class="worker-avatar" id="workerInitial">?</div>
+        <div>
+          <div class="worker-name" id="workerNameDisplay">Worker</div>
+          <div class="worker-role">HSE Training Session</div>
+        </div>
+      </div>
+      <div class="session-info">
+        <div class="live-dot"></div>
+        AI Coach Active
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div class="messages-area" id="messagesArea"></div>
+
+    <!-- Input -->
+    <div class="input-area">
+      <textarea
+        id="chatInput"
+        class="chat-input"
+        placeholder="Ask a question or respond to your coach..."
+        rows="1"
+        onkeydown="handleKeydown(event)"
+        oninput="autoResize(this)"
+      ></textarea>
+      <button class="send-btn" id="sendBtn" onclick="sendMessage()">âž¤</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  let workerName = '';
+  let conversationHistory = [];
+  let isLoading = false;
+  let chipsShown = false;
+
+  const SYSTEM_PROMPT = `You are an expert HSE (Health, Safety & Environment) safety coach specializing in dropped objects prevention for the oil and gas industry. Your name is Coach. You are speaking directly with a field worker named {WORKER_NAME}.
+
+Your role:
+- Teach workers about dropped objects hazards through conversation and realistic scenarios
+- Ask one engaging scenario or question at a time - never overwhelm with multiple questions
+- Give clear, direct feedback on their answers (affirm correct thinking, correct mistakes kindly)
+- Use real-world oil & gas language and context (rigs, scaffolding, platforms, PPE, DROPS, etc.)
+- Reference specific statistics when relevant (50,000+ incidents/year, 143 workers struck daily, etc.)
+- Keep responses concise - 2-4 short paragraphs max
+- Occasionally use formatting like **bold** for key terms or safety rules
+- Always prioritize practical, actionable safety knowledge over theory
+
+Key topics to cover across the conversation:
+- Types of dropped objects (tools, equipment, personal items, structural components)
+- Prevention methods (tool tethering, barricading, housekeeping, inspections)
+- The DROPS (Dropped Objects Prevention Scheme) calculator concept
+- Reporting procedures and stop-work authority
+- Height and weight = potential energy = severity of injury
+
+Tone: Professional but approachable. You're a trusted colleague who genuinely cares about getting everyone home safe. Direct, no-nonsense, but never condescending.
+
+Start by welcoming {WORKER_NAME} personally and immediately presenting a realistic workplace scenario for them to respond to. Make it vivid and specific. Don't ask generic questions - put them in a real situation right away.`;
+
+  function startSession() {
+    const input = document.getElementById('workerName');
+    const name = input.value.trim();
+    if (!name) {
+      input.focus();
+      input.style.borderBottomColor = '#ef4444';
+      setTimeout(() => input.style.borderBottomColor = '', 1500);
+      return;
+    }
+    workerName = name;
+    document.getElementById('welcomeScreen').classList.add('hidden');
+    document.getElementById('chatScreen').classList.remove('hidden');
+    document.getElementById('workerNameDisplay').textContent = name;
+    document.getElementById('workerInitial').textContent = name.charAt(0).toUpperCase();
+    initChat();
+  }
+
+  function initChat() {
+    addSystemMessage('Session started Â· ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}));
+    showTyping();
+    const systemPrompt = SYSTEM_PROMPT.replace(/{WORKER_NAME}/g, workerName);
+    conversationHistory = [];
+    callClaude(systemPrompt, `Start my training session. My name is ${workerName}.`, true);
+  }
+
+  async function callClaude(systemPrompt, userMessage, isInit = false) {
+    isLoading = true;
+    document.getElementById('sendBtn').disabled = true;
+
+    if (!isInit) {
+      conversationHistory.push({ role: 'user', content: userMessage });
+    }
+
+    const messages = isInit
+      ? [{ role: 'user', content: userMessage }]
+      : [...conversationHistory];
+
+    try {
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          system: systemPrompt.replace(/{WORKER_NAME}/g, workerName),
+          messages: messages
+        })
+      });
+
+      const data = await response.json();
+      const reply = data.content?.[0]?.text || 'Sorry, I had trouble responding. Please try again.';
+
+      hideTyping();
+      addCoachMessage(reply);
+      conversationHistory.push({ role: 'assistant', content: reply });
+
+      if (isInit && !chipsShown) {
+        chipsShown = true;
+        setTimeout(showScenarioChips, 400);
+      }
+
+    } catch (err) {
+      hideTyping();
+      addCoachMessage("I'm having trouble connecting right now. Please check your connection and try again.");
+    }
+
+    isLoading = false;
+    document.getElementById('sendBtn').disabled = false;
+  }
+
+  function sendMessage() {
+    if (isLoading) return;
+    const input = document.getElementById('chatInput');
+    const text = input.value.trim();
+    if (!text) return;
+
+    removeChips();
+    addUserMessage(text);
+    input.value = '';
+    input.style.height = 'auto';
+    showTyping();
+
+    const systemPrompt = SYSTEM_PROMPT.replace(/{WORKER_NAME}/g, workerName);
+    callClaude(systemPrompt, text);
+  }
+
+  function handleKeydown(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  }
+
+  function autoResize(el) {
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+  }
+
+  function addCoachMessage(text) {
+    const area = document.getElementById('messagesArea');
+    const div = document.createElement('div');
+    div.className = 'message coach';
+    div.innerHTML = `
+      <div class="msg-avatar coach-av">ðŸ¦º</div>
+      <div class="msg-content">
+        <div class="msg-sender">Safety Coach</div>
+        <div class="msg-bubble">${formatMessage(text)}</div>
+      </div>
+    `;
+    area.appendChild(div);
+    scrollToBottom();
+  }
+
+  function addUserMessage(text) {
+    const area = document.getElementById('messagesArea');
+    const initial = workerName.charAt(0).toUpperCase();
+    const div = document.createElement('div');
+    div.className = 'message user';
+    div.innerHTML = `
+      <div class="msg-avatar user-av">${initial}</div>
+      <div class="msg-content">
+        <div class="msg-sender">${workerName}</div>
+        <div class="msg-bubble">${escapeHtml(text)}</div>
+      </div>
+    `;
+    area.appendChild(div);
+    scrollToBottom();
+  }
+
+  function addSystemMessage(text) {
+    const area = document.getElementById('messagesArea');
+    const div = document.createElement('div');
+    div.className = 'system-msg';
+    div.textContent = text;
+    area.appendChild(div);
+  }
+
+  function showTyping() {
+    const area = document.getElementById('messagesArea');
+    const div = document.createElement('div');
+    div.className = 'typing-indicator';
+    div.id = 'typingIndicator';
+    div.innerHTML = `
+      <div class="msg-avatar coach-av" style="width:34px;height:34px;font-size:16px;display:flex;align-items:center;justify-content:center;">ðŸ¦º</div>
+      <div class="typing-dots">
+        <span></span><span></span><span></span>
+      </div>
+    `;
+    area.appendChild(div);
+    scrollToBottom();
+  }
+
+  function hideTyping() {
+    const el = document.getElementById('typingIndicator');
+    if (el) el.remove();
+  }
+
+  function showScenarioChips() {
+    const area = document.getElementById('messagesArea');
+    const div = document.createElement('div');
+    div.className = 'scenario-chips';
+    div.id = 'scenarioChips';
+    div.innerHTML = `
+      <div class="scenario-label">Quick Scenarios â€” tap to explore</div>
+      <div class="chips-grid">
+        <button class="chip" onclick="useChip(this, 'What should I do if I see a co-worker not using tool lanyards at height?')">Co-worker not using tool lanyards</button>
+        <button class="chip" onclick="useChip(this, 'Walk me through how to set up a proper barricade zone below overhead work.')">Setting up a barricade zone</button>
+        <button class="chip" onclick="useChip(this, 'What is the DROPS calculator and how does it work?')">What is the DROPS calculator?</button>
+        <button class="chip" onclick="useChip(this, 'Give me a scenario about tool tethering on a rig platform.')">Tool tethering on a rig</button>
+      </div>
+    `;
+    area.appendChild(div);
+    scrollToBottom();
+  }
+
+  function useChip(btn, text) {
+    removeChips();
+    document.getElementById('chatInput').value = text;
+    sendMessage();
+  }
+
+  function removeChips() {
+    const chips = document.getElementById('scenarioChips');
+    if (chips) chips.remove();
+  }
+
+  function formatMessage(text) {
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/\n\n/g, '</p><p style="margin-top:10px">')
+      .replace(/\n/g, '<br>')
+      .replace(/^/, '<p>')
+      .replace(/$/, '</p>');
+  }
+
+  function escapeHtml(text) {
+    return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function scrollToBottom() {
+    const area = document.getElementById('messagesArea');
+    setTimeout(() => area.scrollTop = area.scrollHeight, 50);
+  }
+
+  // Allow Enter on name input
+  document.getElementById('workerName').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') startSession();
+  });
+</script>
+</body>
+</html>
