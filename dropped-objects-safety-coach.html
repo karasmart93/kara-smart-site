@@ -52,7 +52,7 @@
     z-index: 0;
   }
 
-  /* â”€â”€â”€ HEADER â”€â”€â”€ */
+  /* --- HEADER --- */
   .header {
     background: var(--steel);
     border-bottom: 2px solid var(--amber);
@@ -111,7 +111,7 @@
     border-radius: 2px;
   }
 
-  /* â”€â”€â”€ MAIN LAYOUT â”€â”€â”€ */
+  /* --- MAIN LAYOUT --- */
   .main {
     flex: 1;
     display: flex;
@@ -122,7 +122,7 @@
     min-height: 0;
   }
 
-  /* â”€â”€â”€ WELCOME SCREEN â”€â”€â”€ */
+  /* --- WELCOME SCREEN --- */
   .welcome-screen {
     flex: 1;
     display: flex;
@@ -266,7 +266,7 @@
   .start-btn:hover { background: #fbbf24; }
   .start-btn:active { transform: scale(0.99); }
 
-  /* â”€â”€â”€ CHAT SCREEN â”€â”€â”€ */
+  /* --- CHAT SCREEN --- */
   .chat-screen {
     flex: 1;
     display: flex;
@@ -560,7 +560,7 @@
   .send-btn:active { transform: scale(0.95); }
   .send-btn:disabled { background: var(--text-muted); cursor: not-allowed; }
 
-  /* â”€â”€â”€ SYSTEM MESSAGE â”€â”€â”€ */
+  /* --- SYSTEM MESSAGE --- */
   .system-msg {
     text-align: center;
     font-size: 11px;
@@ -571,10 +571,10 @@
     padding: 4px 0;
   }
 
-  /* â”€â”€â”€ HIDDEN â”€â”€â”€ */
+  /* --- HIDDEN --- */
   .hidden { display: none !important; }
 
-  /* â”€â”€â”€ ANIMATIONS â”€â”€â”€ */
+  /* --- ANIMATIONS --- */
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -595,7 +595,7 @@
     50% { opacity: 0.4; }
   }
 
-  /* â”€â”€â”€ RESPONSIVE â”€â”€â”€ */
+  /* --- RESPONSIVE --- */
   @media (max-width: 480px) {
     .stat-row { flex-direction: column; }
     .welcome-body { padding: 20px; }
@@ -611,7 +611,7 @@
     <div class="hazard-stripe"></div>
     <div class="header-title">Safety <span>Coach</span> AI</div>
   </div>
-  <div class="header-badge">Dropped Objects Â· HSE Module</div>
+  <div class="header-badge">Dropped Objects &middot; HSE Module</div>
 </div>
 
 <!-- MAIN -->
@@ -621,7 +621,7 @@
   <div class="welcome-screen" id="welcomeScreen">
     <div class="welcome-card">
       <div class="warning-banner">
-        <span class="icon">âš ï¸</span>
+        <span class="icon">&#x1F4CE;</span>
         <span class="warning-banner-text">High Risk Hazard Awareness Training</span>
       </div>
       <div class="welcome-body">
@@ -657,7 +657,7 @@
             autocomplete="off"
           />
         </div>
-        <button class="start-btn" onclick="startSession()">Begin Safety Training â†’</button>
+        <button class="start-btn" onclick="startSession()">Begin Safety Training &rarr;</button>
       </div>
     </div>
   </div>
@@ -693,7 +693,7 @@
         onkeydown="handleKeydown(event)"
         oninput="autoResize(this)"
       ></textarea>
-      <button class="send-btn" id="sendBtn" onclick="sendMessage()">âž¤</button>
+      <button class="send-btn" id="sendBtn" onclick="sendMessage()">&#x27A4;</button>
     </div>
 
   </div>
@@ -746,7 +746,7 @@ Start by welcoming {WORKER_NAME} personally and immediately presenting a realist
   }
 
   function initChat() {
-    addSystemMessage('Session started Â· ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}));
+    addSystemMessage('Session started &middot; ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}));
     showTyping();
     const systemPrompt = SYSTEM_PROMPT.replace(/{WORKER_NAME}/g, workerName);
     conversationHistory = [];
@@ -766,7 +766,7 @@ Start by welcoming {WORKER_NAME} personally and immediately presenting a realist
       : [...conversationHistory];
 
     try {
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
+      const response = await fetch('https://anthropic-proxy.kara-smart93.workers.dev', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -831,7 +831,7 @@ Start by welcoming {WORKER_NAME} personally and immediately presenting a realist
     const div = document.createElement('div');
     div.className = 'message coach';
     div.innerHTML = `
-      <div class="msg-avatar coach-av">ðŸ¦º</div>
+      <div class="msg-avatar coach-av">&#x1F9BA;</div>
       <div class="msg-content">
         <div class="msg-sender">Safety Coach</div>
         <div class="msg-bubble">${formatMessage(text)}</div>
@@ -871,7 +871,7 @@ Start by welcoming {WORKER_NAME} personally and immediately presenting a realist
     div.className = 'typing-indicator';
     div.id = 'typingIndicator';
     div.innerHTML = `
-      <div class="msg-avatar coach-av" style="width:34px;height:34px;font-size:16px;display:flex;align-items:center;justify-content:center;">ðŸ¦º</div>
+      <div class="msg-avatar coach-av" style="width:34px;height:34px;font-size:16px;display:flex;align-items:center;justify-content:center;">&#x1F9BA;</div>
       <div class="typing-dots">
         <span></span><span></span><span></span>
       </div>
@@ -891,7 +891,7 @@ Start by welcoming {WORKER_NAME} personally and immediately presenting a realist
     div.className = 'scenario-chips';
     div.id = 'scenarioChips';
     div.innerHTML = `
-      <div class="scenario-label">Quick Scenarios â€” tap to explore</div>
+      <div class="scenario-label">Quick Scenarios &mdash; tap to explore</div>
       <div class="chips-grid">
         <button class="chip" onclick="useChip(this, 'What should I do if I see a co-worker not using tool lanyards at height?')">Co-worker not using tool lanyards</button>
         <button class="chip" onclick="useChip(this, 'Walk me through how to set up a proper barricade zone below overhead work.')">Setting up a barricade zone</button>
