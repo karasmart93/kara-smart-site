@@ -935,10 +935,16 @@ Start by welcoming {WORKER_NAME} personally and immediately presenting a realist
 
   function scrollToBottom() {
     const area = document.getElementById('messagesArea');
-    // Use multiple attempts to handle iOS rendering delays
-    setTimeout(() => { area.scrollTop = area.scrollHeight; }, 50);
-    setTimeout(() => { area.scrollTop = area.scrollHeight; }, 200);
-    setTimeout(() => { area.scrollTop = area.scrollHeight; }, 400);
+    // Scroll the last child into view -- works on all browsers including iOS Safari
+    const forceScroll = () => {
+      area.scrollTop = area.scrollHeight + 9999;
+      const last = area.lastElementChild;
+      if (last) last.scrollIntoView({ block: 'end' });
+    };
+    forceScroll();
+    setTimeout(forceScroll, 100);
+    setTimeout(forceScroll, 300);
+    setTimeout(forceScroll, 600);
   }
 
   // Allow Enter on name input
