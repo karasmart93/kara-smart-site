@@ -746,7 +746,7 @@ Start by welcoming {WORKER_NAME} personally and immediately presenting a realist
   }
 
   function initChat() {
-    addSystemMessage('Session started &middot; ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}));
+    addSystemMessage('Session started \u00B7 ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}));
     showTyping();
     const systemPrompt = SYSTEM_PROMPT.replace(/{WORKER_NAME}/g, workerName);
     conversationHistory = [];
@@ -770,7 +770,7 @@ Start by welcoming {WORKER_NAME} personally and immediately presenting a realist
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
+          model: 'claude-sonnet-4-6',
           max_tokens: 1000,
           system: systemPrompt.replace(/{WORKER_NAME}/g, workerName),
           messages: messages
