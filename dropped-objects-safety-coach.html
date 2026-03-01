@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Dropped Objects Safety Coach</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -341,11 +341,13 @@
   .messages-area {
     flex: 1;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     padding: 20px;
+    padding-bottom: 32px;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    scroll-behavior: smooth;
+    overscroll-behavior: contain;
   }
 
   .messages-area::-webkit-scrollbar { width: 4px; }
@@ -872,7 +874,7 @@ Start by welcoming {WORKER_NAME} personally and immediately presenting a realist
     div.id = 'typingIndicator';
     div.innerHTML = `
       <div class="msg-avatar coach-av" style="width:34px;height:34px;font-size:16px;display:flex;align-items:center;justify-content:center;">&#x1F9BA;</div>
-      <div class="typing-dots">
+      <div class="typing-dots" title="Coach is thinking...">
         <span></span><span></span><span></span>
       </div>
     `;
@@ -933,7 +935,10 @@ Start by welcoming {WORKER_NAME} personally and immediately presenting a realist
 
   function scrollToBottom() {
     const area = document.getElementById('messagesArea');
-    setTimeout(() => area.scrollTop = area.scrollHeight, 50);
+    // Use multiple attempts to handle iOS rendering delays
+    setTimeout(() => { area.scrollTop = area.scrollHeight; }, 50);
+    setTimeout(() => { area.scrollTop = area.scrollHeight; }, 200);
+    setTimeout(() => { area.scrollTop = area.scrollHeight; }, 400);
   }
 
   // Allow Enter on name input
