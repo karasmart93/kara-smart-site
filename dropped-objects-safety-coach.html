@@ -470,6 +470,7 @@
   }
 
   .chip {
+    touch-action: manipulation;
     background: var(--steel);
     border: 1px solid var(--border-amber);
     color: var(--amber);
@@ -552,6 +553,7 @@
   .chat-input::placeholder { color: var(--text-muted); }
 
   .send-btn {
+    touch-action: manipulation;
     background: var(--amber);
     color: var(--plate);
     border: none;
@@ -766,7 +768,12 @@ Start by welcoming {WORKER_NAME} personally and immediately presenting a realist
 
   async function callClaude(systemPrompt, userMessage, isInit = false) {
     isLoading = true;
-    document.getElementById('sendBtn').disabled = true;
+    const sendBtn = document.getElementById('sendBtn');
+    const chatInput = document.getElementById('chatInput');
+    sendBtn.disabled = true;
+    chatInput.disabled = true;
+    // Blur input to release iOS keyboard lock -- prevents Safari freeze
+    chatInput.blur();
 
     if (!isInit) {
       conversationHistory.push({ role: 'user', content: userMessage });
@@ -806,7 +813,10 @@ Start by welcoming {WORKER_NAME} personally and immediately presenting a realist
     }
 
     isLoading = false;
-    document.getElementById('sendBtn').disabled = false;
+    const sendBtnEnd = document.getElementById('sendBtn');
+    const chatInputEnd = document.getElementById('chatInput');
+    sendBtnEnd.disabled = false;
+    chatInputEnd.disabled = false;
   }
 
   function sendMessage() {
