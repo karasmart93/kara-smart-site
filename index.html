@@ -566,6 +566,16 @@
     color: var(--rust); margin-bottom: 16px;
   }
 
+  .blog-tag-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .blog-tag-row .blog-tag { margin-bottom: 0; }
+
+  .blog-badge-new {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--warm-white); background: var(--forest);
+    padding: 3px 10px; border-radius: 100px;
+  }
+
   .blog-card h3 {
     font-family: 'Fraunces', serif; font-size: 20px; font-weight: 600;
     color: var(--ink); line-height: 1.25; letter-spacing: -0.02em; margin-bottom: 12px;
@@ -605,6 +615,18 @@
 
   .btn-contact-primary:hover,
   .btn-contact-primary:focus-visible { background: var(--clay-dark); color: white; transform: translateY(-2px); outline: 3px solid var(--clay); outline-offset: 3px; }
+
+  .btn-contact-secondary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: transparent; color: var(--cream);
+    border: 2px solid rgba(250,247,242,0.3);
+    padding: 14px 34px; border-radius: 100px;
+    text-decoration: none; font-size: 15px; font-weight: 600;
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+  }
+
+  .btn-contact-secondary:hover,
+  .btn-contact-secondary:focus-visible { border-color: var(--clay); color: var(--clay); transform: translateY(-2px); outline: none; }
 
   .contact-note { margin-top: 40px; font-size: 13px; color: #6e8880; letter-spacing: 0.05em; }
 
@@ -802,14 +824,14 @@
           <h4>&#x1F9BA; Live Example: Dropped Objects Safety Training</h4>
           <p>An AI-powered safety coach for the oil &amp; gas industry. Same learning objectives, completely different experience.</p>
         </div>
-        <a href="/dropped-objects-safety-coach.html" class="btn-demo" target="_blank">Launch Demo &rarr;</a>
+        <a href="dropped-objects-safety-coach.html" class="btn-demo" target="_blank">Launch Demo &rarr;</a>
       </div>
       <div class="demo-banner reveal reveal-d1">
         <div class="demo-banner-text">
           <h4>&#x2705; Live Example: ReviewSync &mdash; L&amp;D Review &amp; Approval Platform</h4>
           <p>Built to solve the chaotic back-and-forth between Instructional Designers and SMEs. Centralized review rounds, deadlines, and bottleneck tracking.</p>
         </div>
-        <a href="/review-tool.html" class="btn-demo" target="_blank">Launch Demo &rarr;</a>
+        <a href="review-tool.html" class="btn-demo" target="_blank">Launch Demo &rarr;</a>
       </div>
     </div>
   </div>
@@ -938,21 +960,23 @@
         <p class="section-eyebrow reveal">Thinking Out Loud</p>
         <h2 class="section-title reveal" style="margin-bottom:0">Writing &amp; Ideas</h2>
       </div>
-      <span class="blog-coming-soon reveal">Articles coming soon</span>
     </div>
 
     <div class="blog-grid reveal">
-      <div class="blog-card featured">
+      <a href="blog-intake-problem.html" class="blog-card featured" style="text-decoration:none;">
+        <div class="blog-tag-row">
+          <span class="blog-tag">Agile L&amp;D</span>
+          <span class="blog-badge-new">New</span>
+        </div>
+        <h3>The Intake Problem: Why L&amp;D Teams Stay Stuck in Reactive Mode</h3>
+        <p>Most L&amp;D intake processes were never designed. They just accumulated. Here&rsquo;s how to fix that.</p>
+        <div class="blog-meta">5 min read</div>
+      </a>
+      <div class="blog-card">
         <span class="blog-tag">AI in L&amp;D</span>
         <h3>Why Your LMS Is Becoming Obsolete (And What to Do About It)</h3>
         <p>The traditional LMS was built for a world of compliance checkboxes and linear navigation. AI is making that world irrelevant &mdash; here&rsquo;s what the transition actually looks like from inside an organization, and what smart L&amp;D leaders are doing now.</p>
         <div class="blog-meta">Coming soon &middot; 8 min read</div>
-      </div>
-      <div class="blog-card">
-        <span class="blog-tag">Agile L&amp;D</span>
-        <h3>The Intake Problem: Why L&amp;D Teams Stay Stuck in Reactive Mode</h3>
-        <p>Most L&amp;D intake processes were never designed. They just accumulated. Here&rsquo;s how to fix that.</p>
-        <div class="blog-meta">Coming soon &middot; 5 min read</div>
       </div>
       <div class="blog-card">
         <span class="blog-tag">Operations</span>
@@ -978,7 +1002,8 @@
       <h2 class="section-title reveal">Ready to Transform Your L&amp;D?</h2>
       <p class="contact-body reveal">Whether you&rsquo;re struggling with chaotic intake, looking to build AI-enhanced training, or just want to explore what&rsquo;s possible &mdash; let&rsquo;s have a conversation.</p>
       <div class="contact-buttons reveal">
-        <a href="https://www.linkedin.com/in/kara-smart/" target="_blank" class="btn-contact-primary">&#x1F4BC; Connect on LinkedIn</a>
+        <a href="mailto:kara.smart93@gmail.com" class="btn-contact-primary">&#x1F4E7; Email Me</a>
+        <a href="https://www.linkedin.com/in/kara-smart/" target="_blank" class="btn-contact-secondary">&#x1F4BC; Connect on LinkedIn</a>
       </div>
       <p class="contact-note">Based in Houston &middot; Serving companies nationwide</p>
     </div>
