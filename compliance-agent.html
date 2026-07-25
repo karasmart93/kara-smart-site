@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Crew Compliance Agent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14161a;
+    --surface:#1d2024;
+    --surface-2:#262a30;
+    --border:#383d44;
+    --text:#ece9e0;
+    --text-2:#9ba0a6;
+    --amber:#f2a93b;
+    --amber-dim:#5c451c;
+    --rust:#d64933;
+    --rust-dim:#4a2117;
+    --teal:#2fa88a;
+    --teal-dim:#173a32;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    padding:32px 24px 60px;
+  }
+  .wrap{max-width:980px;margin:0 auto;}
+
+  /* Header */
+  header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    border-bottom:1px solid var(--border);
+    padding-bottom:20px;
+    margin-bottom:28px;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--amber);
+    margin:0 0 6px;
+  }
+  h1{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    font-size:30px;
+    letter-spacing:0.01em;
+    margin:0;
+    text-transform:uppercase;
+  }
+  .asof{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--text-2);
+    text-align:right;
+  }
+
+  /* Gauge */
+  .gauge-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:20px 24px;
+    margin-bottom:24px;
+  }
+  .gauge-label{
+    display:flex;
+    justify-content:space-between;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--text-2);
+    margin-bottom:10px;
+  }
+  .gauge-label b{color:var(--text);font-weight:500;}
+  .gauge-track{
+    position:relative;
+    height:14px;
+    border-radius:3px;
+    overflow:visible;
+    display:flex;
+    border:1px solid var(--border);
+  }
+  .seg{height:100%;}
+  .seg.rust{background:var(--rust-dim);}
+  .seg.amber{background:var(--amber-dim);}
+  .seg.teal{background:var(--teal-dim);}
+  .needle{
+    position:absolute;
+    top:-5px;
+    width:2px;
+    height:24px;
+    background:var(--text);
+  }
+  .needle::after{
+    content:attr(data-pct);
+    position:absolute;
+    top:-20px;
+    left:50%;
+    transform:translateX(-50%);
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--text);
+    white-space:nowrap;
+  }
+
+  /* Stat row */
+  .stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+    margin-bottom:28px;
+  }
+  .stat{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-left:3px solid var(--border);
+    border-radius:4px;
+    padding:16px 18px;
+  }
+  .stat.rust{border-left-color:var(--rust);}
+  .stat.amber{border-left-color:var(--amber);}
+  .stat.teal{border-left-color:var(--teal);}
+  .stat .n{
+    font-family:'Oswald',sans-serif;
+    font-size:32px;
+    font-weight:600;
+    line-height:1;
+  }
+  .stat.rust .n{color:var(--rust);}
+  .stat.amber .n{color:var(--amber);}
+  .stat.teal .n{color:var(--teal);}
+  .stat .l{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--text-2);
+    margin-top:6px;
+  }
+
+  /* Roster */
+  .section-title{
+    font-family:'Oswald',sans-serif;
+    font-size:15px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    color:var(--text-2);
+    margin:0 0 12px;
+  }
+  table{width:100%;border-collapse:collapse;margin-bottom:32px;}
+  th{
+    text-align:left;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--text-2);
+    font-weight:400;
+    padding:8px 12px;
+    border-bottom:1px solid var(--border);
+  }
+  td{
+    padding:11px 12px;
+    font-size:13.5px;
+    border-bottom:1px solid var(--border);
+  }
+  tr:hover td{background:var(--surface);}
+  .pill{
+    display:inline-block;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:0.03em;
+    padding:3px 9px;
+    border-radius:20px;
+    text-transform:uppercase;
+  }
+  .pill.rust{background:var(--rust-dim);color:#f2b3a6;}
+  .pill.amber{background:var(--amber-dim);color:#f7cd8e;}
+  .pill.teal{background:var(--teal-dim);color:#8fd9c6;}
+  .mono{font-family:'JetBrains Mono',monospace;color:var(--text-2);font-size:12.5px;}
+
+  /* Chat */
+  .chat-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:20px 20px 16px;
+  }
+  #log{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    max-height:340px;
+    overflow-y:auto;
+    margin-bottom:14px;
+    padding-right:4px;
+  }
+  .msg{font-size:14px;line-height:1.55;}
+  .msg .who{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--text-2);
+    margin-bottom:3px;
+  }
+  .msg.user .who{color:var(--amber);}
+  .msg.agent .who{color:var(--teal);}
+  .msg p{margin:0 0 8px;white-space:pre-wrap;}
+  .msg p:last-child{margin-bottom:0;}
+  .row{display:flex;gap:10px;}
+  input[type=text]{
+    flex:1;
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:4px;
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+    padding:11px 13px;
+  }
+  input[type=text]:focus{outline:1px solid var(--amber);border-color:var(--amber);}
+  button{
+    background:var(--amber);
+    color:#20160a;
+    border:none;
+    border-radius:4px;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:14px;
+    padding:0 20px;
+    cursor:pointer;
+  }
+  button:disabled{opacity:0.5;cursor:default;}
+  .hint{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--text-2);
+    margin:10px 0 0;
+  }
+  .suggest{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+  .suggest button.chip{
+    background:transparent;
+    border:1px solid var(--border);
+    color:var(--text-2);
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;
+    font-weight:400;
+    padding:6px 12px;
+    border-radius:20px;
+  }
+  .suggest button.chip:hover{border-color:var(--amber);color:var(--amber);}
+
+  /* Upload bar */
+  .upload-bar{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:16px;
+  }
+  .file-label{
+    display:inline-flex;
+    align-items:center;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:4px;
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    font-weight:500;
+    font-size:13px;
+    padding:9px 16px;
+    cursor:pointer;
+  }
+  .file-label:hover{border-color:var(--amber);}
+  input[type=file]{display:none;}
+  .link-btn{
+    background:none;
+    border:none;
+    color:var(--text-2);
+    font-family:'Inter',sans-serif;
+    font-size:13px;
+    text-decoration:underline;
+    padding:0;
+    cursor:pointer;
+  }
+  .link-btn:hover{color:var(--amber);}
+  #upload-status{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;
+    margin:0 0 14px;
+  }
+  #upload-status.ok{color:var(--teal);}
+  #upload-status.err{color:var(--rust);}
+  #upload-status ul{margin:6px 0 0;padding-left:18px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <p class="eyebrow">Crew Compliance Agent — demo</p>
+      <h1>Dropped objects &amp; safety training roster</h1>
+    </div>
+    <div class="asof">As of<br><span id="asof-date"></span></div>
+  </header>
+
+  <div class="gauge-card">
+    <div class="gauge-label"><span>Fleet compliance</span><b id="gauge-pct-label"></b></div>
+    <div class="gauge-track" id="gauge-track"></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat rust"><div class="n" id="count-overdue">0</div><div class="l">Overdue</div></div>
+    <div class="stat amber"><div class="n" id="count-expiring">0</div><div class="l">Expiring &lt; 30 days</div></div>
+    <div class="stat teal"><div class="n" id="count-compliant">0</div><div class="l">Compliant</div></div>
+  </div>
+
+  <p class="section-title">Roster</p>
+  <div class="upload-bar">
+    <label class="file-label" for="csv-input">Upload roster CSV</label>
+    <input type="file" id="csv-input" accept=".csv,text/csv">
+    <button class="link-btn" id="sample-btn" type="button">Download sample CSV</button>
+    <button class="link-btn" id="reset-btn" type="button">Reset to sample data</button>
+  </div>
+  <p id="upload-status" style="display:none;"></p>
+  <table>
+    <thead><tr><th>Name</th><th>Role</th><th>Training</th><th>Completed</th><th>Expires</th><th>Status</th></tr></thead>
+    <tbody id="roster-body"></tbody>
+  </table>
+
+  <p class="section-title">Ask the agent</p>
+  <div class="chat-card">
+    <div class="suggest">
+      <button class="chip" onclick="ask(this)">Who needs attention first?</button>
+      <button class="chip" onclick="ask(this)">Draft a nudge for the overdue crew</button>
+      <button class="chip" onclick="ask(this)">Which role has the worst compliance?</button>
+    </div>
+    <div id="log"></div>
+    <div class="row">
+      <input type="text" id="input" placeholder="Ask about the roster, or ask it to draft a follow-up...">
+      <button id="send">Send</button>
+    </div>
+    <p class="hint">Reasons over the roster above. Upload your own CSV to try it with different data.</p>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script>
+const TODAY = new Date();
+document.getElementById('asof-date').textContent = TODAY.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+
+const SAMPLE_ROSTER = [
+  {name:'Marcus Webb', role:'Derrickhand', training:'Dropped Objects', completed:'2025-06-10', intervalMonths:12},
+  {name:'Elena Torres', role:'Floorhand', training:'Confined Space', completed:'2026-01-15', intervalMonths:6},
+  {name:'James Okafor', role:'Crane Operator', training:'Fall Protection', completed:'2026-07-01', intervalMonths:12},
+  {name:'Priya Nair', role:'HSE Supervisor', training:'H2S Awareness', completed:'2025-08-20', intervalMonths:12},
+  {name:'Tom Reilly', role:'Derrickhand', training:'Dropped Objects', completed:'2026-07-20', intervalMonths:12},
+  {name:'Sofia Martinez', role:'Floorhand', training:'Confined Space', completed:'2025-12-01', intervalMonths:6},
+  {name:'David Chen', role:'Rig Manager', training:'Fall Protection', completed:'2026-02-14', intervalMonths:12},
+  {name:'Aaliyah Brooks', role:'Crane Operator', training:'Dropped Objects', completed:'2025-07-30', intervalMonths:12},
+  {name:'Ben Ostrowski', role:'Derrickhand', training:'H2S Awareness', completed:'2026-01-10', intervalMonths:12},
+  {name:'Grace Kim', role:'HSE Supervisor', training:'Confined Space', completed:'2025-10-05', intervalMonths:6},
+];
+
+let roster = [];
+
+function addMonths(d, m){ const r = new Date(d); r.setMonth(r.getMonth()+m); return r; }
+function fmt(d){ return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); }
+
+function renderDashboard(data){
+  roster = data.map(r=>({...r}));
+
+  roster.forEach(r=>{
+    const completedDate = new Date(r.completed);
+    r.expiry = addMonths(completedDate, r.intervalMonths);
+    const daysLeft = Math.round((r.expiry - TODAY)/(1000*60*60*24));
+    r.daysLeft = daysLeft;
+    if(daysLeft < 0) r.status='overdue';
+    else if(daysLeft <= 30) r.status='expiring';
+    else r.status='compliant';
+  });
+
+  const counts = {overdue:0, expiring:0, compliant:0};
+  roster.forEach(r=>counts[r.status]++);
+  document.getElementById('count-overdue').textContent = counts.overdue;
+  document.getElementById('count-expiring').textContent = counts.expiring;
+  document.getElementById('count-compliant').textContent = counts.compliant;
+
+  const pct = roster.length ? Math.round((counts.compliant/roster.length)*100) : 0;
+  document.getElementById('gauge-pct-label').textContent = pct + '% fully compliant';
+  const track = document.getElementById('gauge-track');
+  track.innerHTML = '';
+  const segs = [
+    {cls:'teal', w: roster.length ? counts.compliant/roster.length*100 : 0},
+    {cls:'amber', w: roster.length ? counts.expiring/roster.length*100 : 0},
+    {cls:'rust', w: roster.length ? counts.overdue/roster.length*100 : 0},
+  ];
+  segs.forEach(s=>{
+    const el = document.createElement('div');
+    el.className = 'seg '+s.cls;
+    el.style.width = s.w+'%';
+    track.appendChild(el);
+  });
+  const needle = document.createElement('div');
+  needle.className='needle';
+  needle.style.left = pct+'%';
+  needle.setAttribute('data-pct', pct+'%');
+  track.appendChild(needle);
+
+  const tbody = document.getElementById('roster-body');
+  tbody.innerHTML = '';
+  const statusLabel = {overdue:'Overdue', expiring:'Expiring', compliant:'Compliant'};
+  roster.sort((a,b)=>a.daysLeft-b.daysLeft).forEach(r=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${r.name}</td><td>${r.role}</td><td>${r.training}</td>
+      <td class="mono">${fmt(new Date(r.completed))}</td>
+      <td class="mono">${fmt(r.expiry)}</td>
+      <td><span class="pill ${r.status==='overdue'?'rust':r.status==='expiring'?'amber':'teal'}">${statusLabel[r.status]}</span></td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+renderDashboard(SAMPLE_ROSTER);
+
+// ---- CSV upload ----
+const REQUIRED_COLUMNS = ['name','role','training','completed','intervalmonths'];
+const statusEl = document.getElementById('upload-status');
+
+function showStatus(html, kind){
+  statusEl.style.display = 'block';
+  statusEl.className = kind;
+  statusEl.innerHTML = html;
+}
+
+function validateAndTransform(rows, headers){
+  const errors = [];
+  const lowerHeaders = headers.map(h=>h.trim().toLowerCase());
+  const missing = REQUIRED_COLUMNS.filter(c=>!lowerHeaders.includes(c));
+  if(missing.length){
+    return { errors: [`Missing required column${missing.length>1?'s':''}: ${missing.join(', ')}. Expected columns: name, role, training, completed, intervalMonths.`] };
+  }
+
+  const colMap = {};
+  headers.forEach(h=>{ colMap[h.trim().toLowerCase()] = h; });
+
+  const cleaned = [];
+  rows.forEach((row, i)=>{
+    const lineNum = i+2; // account for header row, 1-indexed
+    const name = (row[colMap['name']]||'').trim();
+    const role = (row[colMap['role']]||'').trim();
+    const training = (row[colMap['training']]||'').trim();
+    const completedRaw = (row[colMap['completed']]||'').trim();
+    const intervalRaw = (row[colMap['intervalmonths']]||'').trim();
+
+    if(!name || !role || !training || !completedRaw || !intervalRaw){
+      errors.push(`Row ${lineNum}: missing a required value.`);
+      return;
+    }
+    const completedDate = new Date(completedRaw);
+    if(isNaN(completedDate.getTime())){
+      errors.push(`Row ${lineNum}: "${completedRaw}" isn't a valid date (use YYYY-MM-DD).`);
+      return;
+    }
+    const intervalMonths = Number(intervalRaw);
+    if(!Number.isFinite(intervalMonths) || intervalMonths <= 0){
+      errors.push(`Row ${lineNum}: "${intervalRaw}" isn't a valid number of months.`);
+      return;
+    }
+    cleaned.push({ name, role, training, completed: completedRaw, intervalMonths });
+  });
+
+  if(errors.length){
+    return { errors };
+  }
+  if(!cleaned.length){
+    return { errors: ['The file had no usable rows.'] };
+  }
+  return { data: cleaned };
+}
+
+document.getElementById('csv-input').addEventListener('change', function(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  Papa.parse(file, {
+    header: true,
+    skipEmptyLines: true,
+    complete: function(results){
+      const headers = results.meta.fields || [];
+      const { data, errors } = validateAndTransform(results.data, headers);
+      if(errors){
+        const list = errors.slice(0,6).map(e=>`<li>${e}</li>`).join('');
+        showStatus(`Couldn't load this file:<ul>${list}</ul>`, 'err');
+        return;
+      }
+      renderDashboard(data);
+      showStatus(`Loaded ${data.length} rows from ${file.name}.`, 'ok');
+    },
+    error: function(){
+      showStatus("Couldn't read that file. Make sure it's a plain CSV.", 'err');
+    }
+  });
+  e.target.value = '';
+});
+
+document.getElementById('reset-btn').addEventListener('click', function(){
+  renderDashboard(SAMPLE_ROSTER);
+  showStatus('Restored sample data.', 'ok');
+});
+
+document.getElementById('sample-btn').addEventListener('click', function(){
+  const header = 'name,role,training,completed,intervalMonths';
+  const lines = SAMPLE_ROSTER.map(r=>`${r.name},${r.role},${r.training},${r.completed},${r.intervalMonths}`);
+  const csv = [header, ...lines].join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'sample-training-roster.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+// ---- Chat / agent reasoning ----
+const log = document.getElementById('log');
+const input = document.getElementById('input');
+const sendBtn = document.getElementById('send');
+
+function renderMsg(who, text){
+  const div = document.createElement('div');
+  div.className = 'msg ' + (who==='You' ? 'user':'agent');
+  div.innerHTML = `<div class="who">${who}</div><p></p>`;
+  div.querySelector('p').textContent = text;
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
+  return div.querySelector('p');
+}
+
+function rosterSummary(){
+  return roster.map(r=>
+    `${r.name} | ${r.role} | ${r.training} | completed ${r.completed} | expires ${fmt(r.expiry)} | ${r.daysLeft} days from today | status: ${r.status}`
+  ).join('\n');
+}
+
+async function sendMessage(text){
+  if(!text.trim()) return;
+  renderMsg('You', text);
+  input.value='';
+  sendBtn.disabled = true;
+  const thinkingP = renderMsg('Agent', 'Thinking...');
+
+  const system = `You are a safety compliance agent for an oil and gas crew. You have access to the current training roster below. Today's date is ${TODAY.toDateString()}.
+
+Roster (name | role | training | completed date | expiry date | days until expiry, negative means overdue | status):
+${rosterSummary()}
+
+When asked who needs attention, prioritize by how overdue someone is and by how safety-critical the training is (Fall Protection and Confined Space are highest risk, then Dropped Objects, then H2S Awareness). When asked to draft a follow-up message or nudge, write a short, direct message a supervisor could send as-is, addressed to the relevant person(s), naming the specific training and deadline. Keep answers concise and practical, no more than a few short paragraphs.`;
+
+  try{
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-6",
+        max_tokens: 1000,
+        system: system,
+        messages: [{ role: "user", content: text }]
+      })
+    });
+    const data = await response.json();
+    const textBlocks = (data.content||[]).filter(b=>b.type==='text').map(b=>b.text);
+    thinkingP.textContent = textBlocks.join('\n\n') || 'No response.';
+  }catch(err){
+    thinkingP.textContent = 'Something went wrong reaching the agent. Try again.';
+  }
+  sendBtn.disabled = false;
+}
+
+sendBtn.addEventListener('click', ()=>sendMessage(input.value));
+input.addEventListener('keydown', e=>{ if(e.key==='Enter') sendMessage(input.value); });
+function ask(btn){ sendMessage(btn.textContent); }
+</script>
+</body>
+</html>
