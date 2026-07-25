@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Building Out Loud &mdash; Kara Smart</title>
+<meta name="description" content="A running, honest log of the trial and error behind building this site &mdash; hosting confusion, tools tried, and what actually worked.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,700;1,300;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf7f2;
+    --warm-white: #ffffff;
+    --sand: #f0ebe0;
+    --clay: #c9a97a;
+    --clay-dark: #a8834d;
+    --rust: #c4612a;
+    --forest: #2d4a3e;
+    --forest-light: #3d6455;
+    --ink: #1a1a1a;
+    --ink-mid: #3a3530;
+    --ink-soft: #4e4840;
+    --ink-muted: #6e6860;
+    --mist: #e8e2d9;
+    --teal-accent: #4a9d8a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink-mid);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    padding: 0 32px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(250, 247, 242, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--mist);
+  }
+
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-logo span { color: var(--rust); }
+
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+    background: none;
+    border: none;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+
+  .hamburger:hover,
+  .hamburger:focus-visible { background: rgba(45,74,62,0.08); outline: none; }
+
+  .hamburger span {
+    display: block;
+    width: 24px; height: 2px;
+    background: var(--ink);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .nav-drawer {
+    position: fixed;
+    top: 0; right: -100%;
+    width: min(380px, 100vw);
+    height: 100vh;
+    background: var(--forest);
+    z-index: 250;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 48px;
+  }
+
+  .nav-drawer.open { right: 0; }
+
+  .nav-drawer a {
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-size: 42px;
+    font-weight: 300;
+    color: var(--cream);
+    text-decoration: none;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.3s, transform 0.3s, color 0.2s;
+  }
+
+  .nav-drawer.open a { opacity: 1; transform: translateX(0); }
+  .nav-drawer.open a:nth-child(1) { transition-delay: 0.08s; }
+  .nav-drawer.open a:nth-child(2) { transition-delay: 0.13s; }
+  .nav-drawer.open a:nth-child(3) { transition-delay: 0.18s; }
+  .nav-drawer.open a:nth-child(4) { transition-delay: 0.23s; }
+  .nav-drawer.open a:nth-child(5) { transition-delay: 0.28s; }
+  .nav-drawer.open a:nth-child(6) { transition-delay: 0.33s; }
+  .nav-drawer.open a:nth-child(7) { transition-delay: 0.38s; }
+  .nav-drawer.open a:nth-child(8) { transition-delay: 0.43s; }
+
+  .nav-drawer a:hover,
+  .nav-drawer a:focus-visible { color: var(--clay); outline: none; }
+
+  .nav-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(26, 26, 26, 0.5);
+    z-index: 240;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  .nav-overlay.open { opacity: 1; pointer-events: all; }
+
+  .drawer-tagline {
+    font-size: 13px;
+    color: rgba(250, 247, 242, 0.35);
+    margin-top: 48px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 140px 0 72px;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 60% 50% at 90% 10%, rgba(201,169,122,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 5% 90%, rgba(74,157,138,0.08) 0%, transparent 60%),
+      var(--cream);
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 20px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px; height: 1px;
+    background: var(--rust);
+  }
+
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(40px, 5.5vw, 64px);
+    font-weight: 300;
+    color: var(--ink);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 em { font-style: italic; color: var(--forest); }
+
+  .hero-sub {
+    font-size: 18px;
+    color: var(--ink-soft);
+    max-width: 620px;
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 32px;
+  }
+
+  .btn-ghost-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-muted);
+    text-decoration: none;
+    border: 1px solid var(--mist);
+    padding: 10px 20px;
+    border-radius: 100px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-ghost-back:hover { border-color: var(--clay); color: var(--rust); }
+
+  /* ── INTRO NOTE ── */
+  .intro-note {
+    background: var(--warm-white);
+    border: 1px solid var(--mist);
+    border-radius: 16px;
+    padding: 32px 36px;
+    max-width: 760px;
+    margin: 0 0 16px;
+  }
+
+  .intro-note p { font-size: 15px; color: var(--ink-soft); line-height: 1.75; font-weight: 300; }
+  .intro-note p + p { margin-top: 14px; }
+  .intro-note strong { color: var(--ink); font-weight: 600; }
+
+  /* ── LOG ── */
+  .log-wrap { padding: 88px 0 96px; }
+  .log-intro-eyebrow {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--rust); margin-bottom: 12px;
+  }
+  .log-intro-title {
+    font-family: 'Fraunces', serif; font-size: 34px; font-weight: 300;
+    color: var(--ink); letter-spacing: -0.02em; margin-bottom: 40px;
+  }
+
+  .log-entry {
+    max-width: 720px;
+    padding: 44px 0;
+    border-bottom: 1px solid var(--mist);
+  }
+  .log-entry:first-of-type { padding-top: 0; }
+  .log-entry:last-of-type { border-bottom: none; }
+
+  .log-meta {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--teal-accent); margin-bottom: 10px;
+  }
+
+  .log-title {
+    font-family: 'Fraunces', serif; font-size: 26px; font-weight: 600;
+    color: var(--ink); line-height: 1.3; margin-bottom: 16px;
+  }
+
+  .log-body p { font-size: 15.5px; color: var(--ink-soft); line-height: 1.8; font-weight: 300; }
+  .log-body p + p { margin-top: 14px; }
+
+  .log-note {
+    margin-top: 22px;
+    padding-left: 18px;
+    border-left: 2px solid var(--clay);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--forest);
+    line-height: 1.6;
+  }
+
+  .log-status {
+    display: inline-block;
+    margin-top: 24px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-muted);
+    border: 1px solid var(--mist);
+    padding: 6px 14px;
+    border-radius: 100px;
+  }
+
+  /* ── REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    padding: 32px 48px;
+    text-align: center;
+    color: rgba(250, 247, 242, 0.35);
+    font-size: 13px;
+  }
+  footer a { color: var(--clay); text-decoration: none; transition: color 0.2s; }
+  footer a:hover { color: var(--cream); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 36px; }
+    .hero-sub { font-size: 16px; }
+    .container { padding: 0 24px; }
+    .log-intro-title { font-size: 28px; }
+    .log-title { font-size: 22px; }
+    .intro-note { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="nav-overlay" id="navOverlay"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Kara Smart<span>.</span></a>
+  <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="navDrawer">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="nav-drawer" id="navDrawer" aria-hidden="true">
+  <a href="index.html#work">Work</a>
+  <a href="index.html#ai">AI Learning</a>
+  <a href="index.html#services">Services</a>
+  <a href="portfolio.html">Portfolio</a>
+  <a href="building-out-loud.html" aria-current="page">Building Out Loud</a>
+  <a href="index.html#about">About</a>
+  <a href="index.html#blog">Writing</a>
+  <a href="index.html#contact">Contact</a>
+  <p class="drawer-tagline">Houston &middot; L&amp;D &middot; AI</p>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <p class="hero-eyebrow">Working Out Loud</p>
+    <h1>Building Out <em>Loud</em>.</h1>
+    <p class="hero-sub">A running, honest log of what it's actually taken to build this site and the demos on it &mdash; the hosting confusion, the tools I tried, the things that broke, and what I learned along the way. Not a polished case study. The real process.</p>
+    <a href="index.html" class="btn-ghost-back">&larr; Back to Main Site</a>
+  </div>
+</section>
+
+<div class="container" style="padding-top: 48px;">
+  <div class="intro-note reveal">
+    <p><strong>Why this page exists:</strong> I'm not a web developer. I don't have the technical vocabulary for a lot of this &mdash; registrars, DNS, deployment, agents. I'm figuring it out as I go, mostly by asking a lot of questions and making a lot of mistakes.</p>
+    <p>This page is that process, written down honestly instead of cleaned up after the fact. If you're an L&amp;D person, a consultant, or anyone else wondering whether you can actually build with AI tools without a CS degree &mdash; this is what it really looks like. Messy, iterative, and still ongoing.</p>
+  </div>
+</div>
+
+<!-- LOG -->
+<section class="log-wrap">
+  <div class="container">
+    <p class="log-intro-eyebrow reveal">The Log</p>
+    <h2 class="log-intro-title reveal">Entries, roughly in order.</h2>
+
+    <div class="log-entry reveal">
+      <p class="log-meta">Chapter 01 &middot; February 2026</p>
+      <h3 class="log-title">Where does a website even live?</h3>
+      <div class="log-body">
+        <p>I had a working demo &mdash; the AI safety coach &mdash; and no idea where to actually put it so other people could see it. Turns out "hosting" isn't one thing. I looked at GitHub Pages, Netlify Drop, and eventually landed on AWS Amplify because I already had an account from something else entirely.</p>
+        <p>Nobody tells you upfront that "upload a file" and "deploy an app" are different problems with different answers depending on what you're building.</p>
+      </div>
+      <p class="log-note">What I learned: pick the option that matches what you already have access to, not the one that sounds most official.</p>
+    </div>
+
+    <div class="log-entry reveal">
+      <p class="log-meta">Chapter 02 &middot; February 2026</p>
+      <h3 class="log-title">The 404 heard round the world</h3>
+      <div class="log-body">
+        <p>First attempt at actually getting the demo live: zipped up the portfolio file and the safety coach demo together, uploaded to Amplify, hit deploy, and got a 404. Nothing. Just a wall.</p>
+        <p>Turns out Amplify doesn't guess what your homepage is &mdash; it looks for a file literally named <code>index.html</code> and nothing else. Mine was named after the project, not the job it needed to do. Renamed it, re-zipped, re-uploaded. Worked instantly, which was almost more annoying than the error itself.</p>
+      </div>
+      <p class="log-note">What I learned: hosting platforms don't guess what your front door is. They look for one exact filename, and if it's not there, nothing else you did matters.</p>
+    </div>
+
+    <div class="log-entry reveal">
+      <p class="log-meta">Chapter 03 &middot; February 2026</p>
+      <h3 class="log-title">Wait &mdash; how many domains (and platforms) do I own?</h3>
+      <div class="log-body">
+        <p>While sorting out hosting, I remembered I already owned karasmart.net from years ago, and it was pointed at Google Sites. I was sure Google had sold it off at some point. They hadn't &mdash; what actually happened was that <em>Google Domains</em>, the registrar, had been sold to Squarespace. The site itself was still just sitting on Google Sites the whole time.</p>
+        <p>Somewhere in the same conversation I also remembered a Shopify domain I'd bought and done absolutely nothing with, and asked if I should just host there instead. The answer was no &mdash; Shopify is for selling products, not for a consulting demo. Turns out you can accumulate internet real estate for years without ever learning what any of it is actually for.</p>
+        <p>That's when I learned the difference between a <strong>registrar</strong> (where you bought the domain name) and a <strong>host</strong> (where the actual site files live). They're almost never the same company, and nothing about either interface makes that obvious.</p>
+      </div>
+      <p class="log-note">What I learned: "who do I pay for the name" and "who's actually serving the site" are two completely different questions &mdash; and having more accounts doesn't mean having more clarity.</p>
+    </div>
+
+    <div class="log-entry reveal">
+      <p class="log-meta">Chapter 04 &middot; April 2026</p>
+      <h3 class="log-title">The redesign, take two</h3>
+      <div class="log-body">
+        <p>Once the site had a real home, I came back to actually rebuild it properly &mdash; a full pass on both the homepage and portfolio page, aiming for something warmer and more modern, with a real accessible nav instead of whatever I'd cobbled together the first time.</p>
+        <p>This round taught me the unglamorous side of iterating with AI: re-uploading files when an upload silently failed, re-explaining context I thought was already saved, and learning to just check the actual file before assuming a change had landed.</p>
+      </div>
+      <p class="log-note">What I learned: always ask for a straight answer on whether something actually happened before believing it did.</p>
+    </div>
+
+    <div class="log-entry reveal">
+      <p class="log-meta">Chapter 05 &middot; July 2026</p>
+      <h3 class="log-title">Still chasing down where these things actually live</h3>
+      <div class="log-body">
+        <p>Months later, I still wasn't entirely sure where karasmart.co and karasmart.net were actually hosted versus just registered. WHOIS lookups, DNS lookups, and the discovery that if a domain sits behind Cloudflare, a simple IP lookup just tells you "Cloudflare" &mdash; not the real host underneath it.</p>
+        <p>This one's honestly not fully resolved yet. It's on the list.</p>
+      </div>
+      <p class="log-status">Status: still figuring this one out</p>
+    </div>
+
+    <div class="log-entry reveal">
+      <p class="log-meta">Chapter 06 &middot; July 2026</p>
+      <h3 class="log-title">Building an actual agent, not just a chatbot</h3>
+      <div class="log-body">
+        <p>The most recent piece of work: a Crew Compliance Agent &mdash; something that reasons over a training roster, flags who's overdue on safety certifications, and drafts the follow-up message a supervisor would actually send. Not a coach that guides one learner through content, but something that monitors data and acts on it.</p>
+        <p>Getting it right meant a lot of small, deliberate decisions: what to call it so it reads as an agent and not just another interactive demo, whether to keep the emoji tags I'd been using everywhere else on the site (I dropped them, sitewide), and adding real CSV upload so a visitor can actually test it with their own data instead of just watching mine.</p>
+      </div>
+      <p class="log-note">What I learned: the small naming and labeling decisions matter as much as the underlying build &mdash; how something is described is part of what it is.</p>
+    </div>
+
+    <div class="log-entry reveal">
+      <p class="log-meta">Chapter 07 &middot; July 2026</p>
+      <h3 class="log-title">There is always a third file</h3>
+      <div class="log-body">
+        <p>Got the agent built, uploaded the updated homepage and portfolio page to GitHub, and assumed that was the whole job. It was not. The "Launch Demo" button on the homepage points to the actual demo file &mdash; a completely separate file I hadn't uploaded yet.</p>
+        <p>And that link only works if the filename in the button matches the filename sitting on GitHub exactly, including capitalization. Not "close enough." Exactly. It's a small, unglamorous fact that turns out to be the entire mechanism behind every "Launch Demo" button on this site.</p>
+      </div>
+      <p class="log-note">What I learned: a link is a promise that a specific file exists in a specific place under a specific name. Break that promise by one character and the button just quietly does nothing, with no explanation at all.</p>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Kara Smart &middot; <a href="index.html">Back to Main Site</a> &middot; Houston, TX</p>
+</footer>
+
+<script>
+  var drawer  = document.getElementById('navDrawer');
+  var overlay = document.getElementById('navOverlay');
+  var burger  = document.getElementById('hamburger');
+
+  function getFocusables() {
+    return Array.from(drawer.querySelectorAll('a[href], button, [tabindex]:not([tabindex="-1"])'));
+  }
+
+  function trapFocus(e) {
+    var focusables = getFocusables();
+    var first = focusables[0], last = focusables[focusables.length - 1];
+    if (e.key === 'Tab') {
+      if (e.shiftKey) { if (document.activeElement === first) { e.preventDefault(); last.focus(); } }
+      else            { if (document.activeElement === last)  { e.preventDefault(); first.focus(); } }
+    }
+    if (e.key === 'Escape') closeMenu();
+  }
+
+  function openMenu() {
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    burger.classList.add('open');
+    burger.setAttribute('aria-expanded', 'true');
+    drawer.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    drawer.addEventListener('keydown', trapFocus);
+    setTimeout(function() { var f = getFocusables()[0]; if (f) f.focus(); }, 350);
+  }
+
+  function closeMenu() {
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+    burger.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+    drawer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    drawer.removeEventListener('keydown', trapFocus);
+    burger.focus();
+  }
+
+  burger.addEventListener('click', function() {
+    drawer.classList.contains('open') ? closeMenu() : openMenu();
+  });
+
+  overlay.addEventListener('click', closeMenu);
+  drawer.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', closeMenu);
+  });
+
+  var revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    revealObserver.observe(el);
+  });
+</script>
+</body>
+</html>
