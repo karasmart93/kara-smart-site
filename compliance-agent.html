@@ -570,7 +570,7 @@ ${rosterSummary()}
 When asked who needs attention, prioritize by how overdue someone is and by how safety-critical the training is (Fall Protection and Confined Space are highest risk, then Dropped Objects, then H2S Awareness). When asked to draft a follow-up message or nudge, write a short, direct message a supervisor could send as-is, addressed to the relevant person(s), naming the specific training and deadline. Keep answers concise and practical, no more than a few short paragraphs.`;
 
   try{
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
+    const response = await fetch("https://anthropic-proxy.kara-smart93.workers.dev/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
