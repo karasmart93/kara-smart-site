@@ -1087,6 +1087,9 @@
         <div id="cal-upcoming-list"></div>
       </div>
     </div>
+
+    <!-- ACTIVITY FEED -->
+    <div class="page" id="page-activity">
       <div class="page-header">
         <div>
           <div class="page-title">Activity Feed</div>
@@ -1205,8 +1208,18 @@
 <script>
 // --- DATA -------------------------------------------
 
-// Today is Feb 17, 2026 &mdash; derive all deadlines from that anchor
+// Demo data: every date is generated relative to today, so the demo never goes stale
 const TODAY = new Date();
+
+function offsetDate(days) {
+  const d = new Date(TODAY.getFullYear(), TODAY.getMonth(), TODAY.getDate() + days);
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+
+function fmtOffset(days) {
+  return new Date(TODAY.getFullYear(), TODAY.getMonth(), TODAY.getDate() + days)
+    .toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
 
 function daysFromToday(dateStr) {
   const d = new Date(dateStr);
@@ -1227,14 +1240,14 @@ const PROJECTS = [
     status: "in-review",
     round: 2,
     totalRounds: 3,
-    deadlineDate: "2026-02-19",
+    deadlineDate: offsetDate(2),
     totalDays: 10,
     reviewers: [
       { name: "Marcus Webb", role: "Safety SME", initials: "MW", color: "#ef4444", status: "overdue", daysOverdue: 6 },
       { name: "Priya Nair", role: "L&D Lead", initials: "PN", color: "#10b981", status: "approved" }
     ],
     rounds: [
-      { num: 1, status: "complete", label: "Initial Review", date: "Jan 28, 2026", feedback: "Good structure overall. Needs more detail in the PPE section and clearer scenario branching for the quiz questions." },
+      { num: 1, status: "complete", label: "Initial Review", date: fmtOffset(-20), feedback: "Good structure overall. Needs more detail in the PPE section and clearer scenario branching for the quiz questions." },
       { num: 2, status: "active", label: "Revision Review", date: "In progress" },
       { num: 3, status: "future", label: "Final Sign-off", date: "Pending" }
     ],
@@ -1257,7 +1270,7 @@ const PROJECTS = [
     status: "revision",
     round: 1,
     totalRounds: 2,
-    deadlineDate: "2026-02-22",
+    deadlineDate: offsetDate(5),
     totalDays: 14,
     reviewers: [
       { name: "David Park", role: "Compliance SME", initials: "DP", color: "#3b82f6", status: "overdue", daysOverdue: 4 },
@@ -1285,15 +1298,15 @@ const PROJECTS = [
     status: "approved",
     round: 2,
     totalRounds: 2,
-    deadlineDate: "2026-02-25",
+    deadlineDate: offsetDate(8),
     totalDays: 10,
     reviewers: [
       { name: "Sarah Chen", role: "HR Lead", initials: "SC", color: "#10b981", status: "approved" },
       { name: "James Okafor", role: "Operations", initials: "JO", color: "#10b981", status: "approved" }
     ],
     rounds: [
-      { num: 1, status: "complete", label: "Initial Review", date: "Feb 3, 2026", feedback: "Looks great! Minor formatting tweaks needed on page 4." },
-      { num: 2, status: "complete", label: "Final Approval", date: "Feb 10, 2026", feedback: "Approved. Ready to publish." }
+      { num: 1, status: "complete", label: "Initial Review", date: fmtOffset(-14), feedback: "Looks great! Minor formatting tweaks needed on page 4." },
+      { num: 2, status: "complete", label: "Final Approval", date: fmtOffset(-7), feedback: "Approved. Ready to publish." }
     ],
     files: [
       { name: "NewHire_JobAid_FINAL.pdf", icon: "&#x1F4CB;", version: "v2 FINAL" }
@@ -1312,7 +1325,7 @@ const PROJECTS = [
     status: "pending",
     round: 0,
     totalRounds: 2,
-    deadlineDate: "2026-03-01",
+    deadlineDate: offsetDate(12),
     totalDays: 14,
     reviewers: [
       { name: "Marcus Webb", role: "Safety SME", initials: "MW", color: "#94a3b8", status: "waiting" },
@@ -1336,7 +1349,7 @@ const PROJECTS = [
     status: "in-review",
     round: 1,
     totalRounds: 3,
-    deadlineDate: "2026-02-24",
+    deadlineDate: offsetDate(7),
     totalDays: 14,
     reviewers: [
       { name: "Priya Nair", role: "L&D Lead", initials: "PN", color: "#f59e0b", status: "reviewing" },
@@ -1364,14 +1377,14 @@ const PROJECTS = [
     status: "revision",
     round: 2,
     totalRounds: 2,
-    deadlineDate: "2026-02-18",
+    deadlineDate: offsetDate(1),
     totalDays: 7,
     reviewers: [
       { name: "Marcus Webb", role: "Safety SME", initials: "MW", color: "#ef4444", status: "overdue", daysOverdue: 3 },
       { name: "Facilities Mgmt", role: "Stakeholder", initials: "FM", color: "#94a3b8", status: "waiting" }
     ],
     rounds: [
-      { num: 1, status: "complete", label: "Initial Review", date: "Feb 5, 2026", feedback: "Exit routes on Floor 3 are outdated. Need new floor plan." },
+      { num: 1, status: "complete", label: "Initial Review", date: fmtOffset(-12), feedback: "Exit routes on Floor 3 are outdated. Need new floor plan." },
       { num: 2, status: "active", label: "Revised Review", date: "In progress" }
     ],
     files: [
@@ -1913,7 +1926,7 @@ function renderCalendar() {
   // Current month days
   for (let d = 1; d <= daysInMonth; d++) {
     const dateStr = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    const isToday = dateStr === '2026-02-17';
+    const isToday = dateStr === offsetDate(0);
     const projects = deadlineMap[dateStr] || [];
     const dl = daysFromToday(dateStr);
 
@@ -2068,6 +2081,7 @@ function createProject() {
     status: 'pending',
     round: 0,
     totalRounds: 2,
+    deadlineDate: deadline || offsetDate(14),
     daysLeft: deadline ? Math.ceil((new Date(deadline) - new Date()) / 86400000) : 14,
     totalDays: 14,
     reviewers: reviewerNames.map((n, i) => ({
