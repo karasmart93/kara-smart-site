@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /index-palette.html
+Disallow: /shots/
+
+Sitemap: https://karasmart.co/sitemap.xml

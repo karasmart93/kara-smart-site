@@ -3,7 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ReviewSync | L&D Review & Approval Platform</title>
+<title>ReviewSync | L&D Review &amp; Approval Platform | Kara Smart</title>
+<meta name="description" content="Interactive demo of ReviewSync, a review-and-approval tool that tracks rounds, deadlines, and bottlenecks. Uses sample data.">
+<meta name="author" content="Kara Smart">
+<link rel="canonical" href="https://karasmart.co/review-tool.html">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://karasmart.co/review-tool.html">
+<meta property="og:title" content="ReviewSync | L&D Review & Approval Platform | Kara Smart">
+<meta property="og:description" content="Interactive demo of ReviewSync, a review-and-approval tool that tracks rounds, deadlines, and bottlenecks. Uses sample data.">
+<meta property="og:image" content="https://karasmart.co/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Kara Smart">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ReviewSync | L&D Review & Approval Platform | Kara Smart">
+<meta name="twitter:description" content="Interactive demo of ReviewSync, a review-and-approval tool that tracks rounds, deadlines, and bottlenecks. Uses sample data.">
+<meta name="twitter:image" content="https://karasmart.co/og-image.png">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -931,9 +955,76 @@
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--slate-700); border-radius: 3px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--slate-600); }
+
+  /* Site chrome: back bar for local preview, does not restyle the demo itself */
+  .ks-sitebar {
+    box-sizing: border-box;
+    height: 44px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: #ffffff;
+    border-bottom: 1px solid #d5d8e0;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 400;
+  }
+  .ks-sitebar a { color: #1b4dc0; font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap; }
+  .ks-sitebar a:hover, .ks-sitebar a:focus-visible { color: #163ea0; outline: 2px solid #1b4dc0; outline-offset: 2px; }
+  .ks-sitebar .ks-sitebar-name {
+    font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #12141a;
+    text-decoration: none;
+    letter-spacing: -0.03em;
+  }
+  .ks-sitebar .ks-sitebar-name span { color: #c47f0a; }
+  .ks-sitebar .ks-sitebar-name:hover, .ks-sitebar .ks-sitebar-name:focus-visible { color: #12141a; }
+
+  .ks-sitebar { position: sticky; top: 0; }
+  .app-shell { min-height: calc(100vh - 44px); }
+  .sidebar { top: 100px; height: calc(100vh - 100px); }
+  .topbar { top: 44px; }
+
+  /* Match the new site: navy back bar with gold period */
+  .ks-sitebar { background: #141a28; border-bottom: 1px solid #2a3347; }
+  .ks-sitebar a { color: #c9d2e6; }
+  .ks-sitebar a:hover, .ks-sitebar a:focus-visible { color: #ffffff; outline-color: #c47f0a; }
+  .ks-sitebar .ks-sitebar-name { color: #ffffff; }
+  .ks-sitebar .ks-sitebar-name:hover, .ks-sitebar .ks-sitebar-name:focus-visible { color: #ffffff; }
+  .ks-sitebar .ks-sitebar-name span { color: #e0a02a; }
+
+  /* Phones: sidebar becomes a scrolling tab row instead of a 240px column */
+  @media (max-width: 768px) {
+    .app-shell { grid-template-columns: 1fr; grid-template-rows: auto auto 1fr; }
+    .topbar { padding: 0 14px; height: 56px; }
+    .topbar-brand span { display: none; }
+    .role-badge { font-size: 11px; padding: 6px 10px; white-space: nowrap; }
+    .sidebar { position: static; top: auto; height: auto; padding: 8px 10px; display: flex; flex-direction: row; overflow-x: auto; overflow-y: hidden; border-right: 0; border-bottom: 1px solid var(--slate-800); }
+    .sidebar .nav-section { display: flex; flex-direction: row; gap: 6px; padding: 0; margin: 0; border: 0; }
+    .sidebar .nav-label { display: none; }
+    .sidebar .divider { display: none; }
+    .sidebar .nav-section { margin-top: 0 !important; }
+    .sidebar .nav-item { white-space: nowrap; padding: 8px 12px; }
+    .main { max-height: none; overflow-y: visible; }
+    .page { padding: 20px 16px; }
+    .page-header { flex-wrap: wrap; gap: 12px; }
+  }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600&family=Hanken+Grotesk:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="ks-sitebar">
+  <a href="index.html" class="ks-sitebar-name">Kara Smart<span>.</span></a>
+  <a href="index.html">&larr; Back to karasmart.co</a>
+</div>
+
 
 <div class="app-shell">
 

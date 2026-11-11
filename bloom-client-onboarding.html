@@ -3,7 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bloom Wellness Studio &mdash; New Client Onboarding</title>
+  <title>Bloom Wellness Studio &mdash; New Client Onboarding | Kara Smart</title>
+<meta name="description" content="Interactive demo of a new-client welcome path for a small wellness business. Uses sample data.">
+<meta name="author" content="Kara Smart">
+<link rel="canonical" href="https://karasmart.co/bloom-client-onboarding.html">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://karasmart.co/bloom-client-onboarding.html">
+<meta property="og:title" content="Bloom Wellness Studio — New Client Onboarding | Kara Smart">
+<meta property="og:description" content="Interactive demo of a new-client welcome path for a small wellness business. Uses sample data.">
+<meta property="og:image" content="https://karasmart.co/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Kara Smart">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bloom Wellness Studio — New Client Onboarding | Kara Smart">
+<meta name="twitter:description" content="Interactive demo of a new-client welcome path for a small wellness business. Uses sample data.">
+<meta name="twitter:image" content="https://karasmart.co/og-image.png">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -242,9 +266,49 @@
     .step-item { flex-shrink: 0; border-left: none; border-bottom: 3px solid transparent; border-radius: 8px; min-width: 140px; }
     .step-item.active { border-bottom-color: var(--warm-brown); }
   }
+
+  /* Site chrome: back bar for local preview, does not restyle the demo itself */
+  .ks-sitebar {
+    box-sizing: border-box;
+    height: 44px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: #ffffff;
+    border-bottom: 1px solid #d5d8e0;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 400;
+  }
+  .ks-sitebar a { color: #1b4dc0; font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap; }
+  .ks-sitebar a:hover, .ks-sitebar a:focus-visible { color: #163ea0; outline: 2px solid #1b4dc0; outline-offset: 2px; }
+  .ks-sitebar .ks-sitebar-name {
+    font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #12141a;
+    text-decoration: none;
+    letter-spacing: -0.03em;
+  }
+  .ks-sitebar .ks-sitebar-name span { color: #c47f0a; }
+  .ks-sitebar .ks-sitebar-name:hover, .ks-sitebar .ks-sitebar-name:focus-visible { color: #12141a; }
+
+  .ks-sitebar { position: sticky; top: 0; }
+  .app-layout { min-height: calc(100vh - 152px); }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600&family=Hanken+Grotesk:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="ks-sitebar">
+  <a href="index.html" class="ks-sitebar-name">Kara Smart<span>.</span></a>
+  <a href="index.html">&larr; Back to karasmart.co</a>
+</div>
+
 
 <!-- ROLE SWITCHER -->
 <div class="role-bar">

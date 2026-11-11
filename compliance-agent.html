@@ -2,7 +2,32 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Crew Compliance Agent</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crew Compliance Agent | Kara Smart</title>
+<meta name="description" content="Interactive demo of an agent that reviews a training roster, flags compliance gaps, and drafts follow-ups. Uses sample data.">
+<meta name="author" content="Kara Smart">
+<link rel="canonical" href="https://karasmart.co/compliance-agent.html">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://karasmart.co/compliance-agent.html">
+<meta property="og:title" content="Crew Compliance Agent | Kara Smart">
+<meta property="og:description" content="Interactive demo of an agent that reviews a training roster, flags compliance gaps, and drafts follow-ups. Uses sample data.">
+<meta property="og:image" content="https://karasmart.co/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Kara Smart">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Crew Compliance Agent | Kara Smart">
+<meta name="twitter:description" content="Interactive demo of an agent that reviews a training roster, flags compliance gaps, and drafts follow-ups. Uses sample data.">
+<meta name="twitter:image" content="https://karasmart.co/og-image.png">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -304,9 +329,64 @@
   #upload-status.ok{color:var(--teal);}
   #upload-status.err{color:var(--rust);}
   #upload-status ul{margin:6px 0 0;padding-left:18px;}
+
+
+  .roster-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:32px;}
+  .roster-wrap table{margin-bottom:0;min-width:640px;}
+  .gauge-track{margin-top:18px;}
+  @media (max-width: 600px) {
+    header{align-items:flex-start;}
+    .asof{text-align:left;}
+    .gauge-label{flex-direction:column;align-items:flex-start;gap:4px;}
+    .needle::after{display:none;}
+    .gauge-track{margin-top:0;}
+    body{overflow-x:hidden;}
+    h1{font-size:26px;}
+  }
+
+  /* Site chrome: back bar for local preview, does not restyle the demo itself */
+  .ks-sitebar {
+    box-sizing: border-box;
+    height: 44px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: #ffffff;
+    border-bottom: 1px solid #d5d8e0;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 400;
+  }
+  .ks-sitebar a { color: #1b4dc0; font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap; }
+  .ks-sitebar a:hover, .ks-sitebar a:focus-visible { color: #163ea0; outline: 2px solid #1b4dc0; outline-offset: 2px; }
+  .ks-sitebar .ks-sitebar-name {
+    font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #12141a;
+    text-decoration: none;
+    letter-spacing: -0.03em;
+  }
+  .ks-sitebar .ks-sitebar-name span { color: #c47f0a; }
+  .ks-sitebar .ks-sitebar-name:hover, .ks-sitebar .ks-sitebar-name:focus-visible { color: #12141a; }
+
+  body { padding-top: 0 !important; }
+  .ks-sitebar { position: sticky; top: 0; margin: 0 -24px 0 -24px; width: auto; left: 0; right: 0; }
+  .wrap { padding-top: 32px; }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600&family=Hanken+Grotesk:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="ks-sitebar">
+  <a href="index.html" class="ks-sitebar-name">Kara Smart<span>.</span></a>
+  <a href="index.html">&larr; Back to karasmart.co</a>
+</div>
+
 <div class="wrap">
 
   <header>
@@ -336,10 +416,12 @@
     <button class="link-btn" id="reset-btn" type="button">Reset to sample data</button>
   </div>
   <p id="upload-status" style="display:none;"></p>
+  <div class="roster-wrap">
   <table>
     <thead><tr><th>Name</th><th>Role</th><th>Training</th><th>Completed</th><th>Expires</th><th>Status</th></tr></thead>
     <tbody id="roster-body"></tbody>
   </table>
+  </div>
 
   <p class="section-title">Ask the agent</p>
   <div class="chat-card">

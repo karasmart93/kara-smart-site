@@ -3,35 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kara Smart | L&amp;D Transformation &amp; AI-Enhanced Learning</title>
-<meta name="description" content="L&amp;D operations consultant specializing in agile transformation and AI-powered learning systems. Serving Houston&rsquo;s energy, healthcare, and tech sectors.">
+<title>Kara Smart | Business Process Analyst, Process Improvement &amp; AI-Enabled Workflows</title>
+<meta name="description" content="Business Process Analyst in Houston. I map how work really moves, find the root cause of the friction, and build simpler, AI-enabled workflows for learning and operations teams.">
+<meta name="author" content="Kara Smart">
+<link rel="canonical" href="https://karasmart.co/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://karasmart.co/">
+<meta property="og:title" content="Kara Smart | Business Process Analyst, Process Improvement &amp; AI-Enabled Workflows">
+<meta property="og:description" content="Business Process Analyst in Houston. I map how work really moves, find the root cause of the friction, and build simpler, AI-enabled workflows for learning and operations teams.">
+<meta property="og:image" content="https://karasmart.co/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Kara Smart">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kara Smart | Business Process Analyst, Process Improvement &amp; AI-Enabled Workflows">
+<meta name="twitter:description" content="Business Process Analyst in Houston. I map how work really moves, find the root cause of the friction, and build simpler, AI-enabled workflows for learning and operations teams.">
+<meta name="twitter:image" content="https://karasmart.co/og-image.png">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,700;1,300;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --cream: #faf7f2;
-    --warm-white: #ffffff;
-    --sand: #f0ebe0;
-    --clay: #c9a97a;
-    --clay-dark: #a8834d;
-    --rust: #c4612a;
-    --forest: #2d4a3e;
-    --forest-light: #3d6455;
-    --ink: #1a1a1a;
-    --ink-mid: #3a3530;
-    --ink-soft: #4e4840;
-    --ink-muted: #6e6860;
-    --mist: #e8e2d9;
-    --teal-accent: #4a9d8a;
+    --white: #ffffff;
+    --gray: #f3f4f7;
+    --section: #e0e5ef;
+    --gray-2: #e8eaef;
+    --line: #d5d8e0;
+    --ink: #12141a;
+    --ink-mid: #2c3038;
+    --ink-soft: #4a5160;
+    --ink-muted: #5c6573;
+    --navy: #141a28;
+    --navy-muted: #9aa3b5;
+    --cobalt: #1b4dc0;
+    --cobalt-dark: #163ea0;
+    --cobalt-soft: #e8eefb;
+    --marigold: #c47f0a;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
+    font-family: 'Hanken Grotesk', sans-serif;
+    background: var(--white);
     color: var(--ink-mid);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
@@ -41,27 +65,35 @@
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
-    z-index: 200;
+    z-index: 260;
     padding: 0 32px;
     height: 64px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgba(250, 247, 242, 0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--mist);
+    background: var(--white);
+    border-bottom: 1px solid var(--line);
+    transition: background 0.3s, border-color 0.3s;
   }
 
+  nav.menu-open {
+    background: transparent;
+    border-bottom-color: transparent;
+  }
+
+  nav.menu-open .nav-logo { color: var(--white); }
+  nav.menu-open .nav-logo span { color: var(--marigold); }
+
   .nav-logo {
-    font-family: 'Fraunces', serif;
+    font-family: 'Bricolage Grotesque', sans-serif;
     font-size: 22px;
     font-weight: 600;
     color: var(--ink);
     text-decoration: none;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
   }
 
-  .nav-logo span { color: var(--rust); }
+  .nav-logo span { color: var(--marigold); }
 
   .hamburger {
     display: flex;
@@ -73,20 +105,25 @@
     border: none;
     border-radius: 4px;
     transition: background 0.2s;
+    position: relative;
+    z-index: 260;
   }
 
   .hamburger:hover,
-  .hamburger:focus-visible { background: rgba(45,74,62,0.08); outline: none; }
+  .hamburger:focus-visible { background: var(--cobalt-soft); outline: none; }
+  .hamburger.open:hover,
+  .hamburger.open:focus-visible { background: rgba(255,255,255,0.12); }
 
   .hamburger span {
     display: block;
     width: 24px; height: 2px;
     background: var(--ink);
-    border-radius: 2px;
+    border-radius: 1px;
     transition: all 0.3s ease;
     transform-origin: center;
   }
 
+  .hamburger.open span { background: var(--white); }
   .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
   .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
@@ -96,7 +133,7 @@
     top: 0; right: -100%;
     width: min(380px, 100vw);
     height: 100vh;
-    background: var(--forest);
+    background: var(--navy);
     z-index: 250;
     transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
@@ -109,12 +146,13 @@
 
   .nav-drawer a {
     display: block;
-    font-family: 'Fraunces', serif;
+    font-family: 'Bricolage Grotesque', sans-serif;
     font-size: 42px;
-    font-weight: 300;
-    color: var(--cream);
+    font-weight: 500;
+    color: var(--white);
     text-decoration: none;
-    line-height: 1.2;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
     margin-bottom: 8px;
     opacity: 0;
     transform: translateX(30px);
@@ -126,18 +164,14 @@
   .nav-drawer.open a:nth-child(2) { transition-delay: 0.13s; }
   .nav-drawer.open a:nth-child(3) { transition-delay: 0.18s; }
   .nav-drawer.open a:nth-child(4) { transition-delay: 0.23s; }
-  .nav-drawer.open a:nth-child(5) { transition-delay: 0.28s; }
-  .nav-drawer.open a:nth-child(6) { transition-delay: 0.33s; }
-  .nav-drawer.open a:nth-child(7) { transition-delay: 0.38s; }
-  .nav-drawer.open a:nth-child(8) { transition-delay: 0.43s; }
 
   .nav-drawer a:hover,
-  .nav-drawer a:focus-visible { color: var(--clay); outline: none; }
+  .nav-drawer a:focus-visible { color: #9db4f0; outline: none; }
 
   .nav-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(26, 26, 26, 0.5);
+    background: rgba(18, 20, 26, 0.5);
     z-index: 240;
     opacity: 0;
     pointer-events: none;
@@ -148,7 +182,7 @@
 
   .drawer-tagline {
     font-size: 13px;
-    color: rgba(250, 247, 242, 0.35);
+    color: var(--navy-muted);
     margin-top: 48px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -156,37 +190,20 @@
 
   /* HERO */
   .hero {
-    min-height: 100vh;
+    min-height: 72vh;
     display: flex;
     align-items: center;
-    padding: 120px 0 80px;
+    padding: 128px 0 88px;
     position: relative;
     overflow: hidden;
   }
 
   .hero-bg {
     position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 70% 60% at 80% 20%, rgba(201,169,122,0.15) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 40% at 10% 80%, rgba(74,157,138,0.08) 0%, transparent 60%),
-      var(--cream);
+    background: var(--white);
   }
 
-  .hero-decoration {
-    position: absolute;
-    top: 15%; right: 8%;
-    width: 320px; height: 320px;
-    border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
-    background: linear-gradient(135deg, rgba(201,169,122,0.2), rgba(196,97,42,0.08));
-    animation: morphBlob 12s ease-in-out infinite;
-    pointer-events: none;
-  }
-
-  @keyframes morphBlob {
-    0%, 100% { border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%; }
-    33%       { border-radius: 40% 60% 45% 55% / 60% 40% 55% 45%; }
-    66%       { border-radius: 55% 45% 60% 40% / 45% 55% 50% 50%; }
-  }
+  .hero-decoration { display: none; }
 
   .hero .container {
     position: relative; z-index: 1;
@@ -198,40 +215,48 @@
     align-items: center;
     gap: 10px;
     font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
+    font-weight: 600;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--rust);
+    color: var(--cobalt);
     margin-bottom: 28px;
   }
+
+  .nowrap { white-space: nowrap; }
 
   .hero-eyebrow::before {
     content: '';
     display: block;
     width: 32px; height: 1px;
-    background: var(--rust);
+    background: var(--cobalt);
   }
 
   .hero h1 {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(44px, 6vw, 80px);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(46px, 6.2vw, 80px);
     font-weight: 600;
     color: var(--ink);
-    line-height: 1.05;
-    letter-spacing: -0.03em;
+    line-height: 1.02;
+    letter-spacing: -0.045em;
     max-width: 820px;
     margin-bottom: 32px;
   }
 
-  .hero h1 em { font-style: italic; color: var(--rust); font-weight: 300; }
+  .hero h1 em {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.03em;
+  }
 
   .hero-sub {
     font-size: 18px;
     color: var(--ink-soft);
-    max-width: 520px;
-    line-height: 1.7;
+    max-width: 640px;
+    line-height: 1.65;
     margin-bottom: 48px;
-    font-weight: 300;
+    font-weight: 400;
   }
 
   .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
@@ -240,18 +265,19 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: var(--forest);
-    color: var(--cream);
-    padding: 15px 32px;
-    border-radius: 100px;
+    background: var(--cobalt);
+    color: var(--white);
+    padding: 14px 26px;
+    border-radius: 8px;
     text-decoration: none;
     font-size: 15px;
-    font-weight: 500;
-    transition: background 0.2s, transform 0.15s;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    transition: background 0.2s;
   }
 
   .btn-primary:hover,
-  .btn-primary:focus-visible { background: var(--forest-light); transform: translateY(-2px); outline: 3px solid var(--forest); outline-offset: 3px; }
+  .btn-primary:focus-visible { background: var(--cobalt-dark); outline: 2px solid var(--cobalt); outline-offset: 3px; }
 
   .btn-ghost {
     display: inline-flex;
@@ -259,33 +285,41 @@
     gap: 8px;
     color: var(--ink-mid);
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: none;
-    border-bottom: 1.5px solid var(--clay);
+    border-bottom: 1.5px solid var(--cobalt);
     padding-bottom: 2px;
     transition: color 0.2s, border-color 0.2s;
   }
 
   .btn-ghost:hover,
-  .btn-ghost:focus-visible { color: var(--rust); border-color: var(--rust); outline: none; }
+  .btn-ghost:focus-visible { color: var(--cobalt); border-color: var(--cobalt); outline: none; }
 
-  .hero-stats {
-    display: flex;
+  /* PROOF STRIP */
+  .proof {
+    background: var(--section);
+    padding: 72px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 48px;
-    margin-top: 72px;
-    padding-top: 40px;
-    border-top: 1px solid var(--mist);
-    flex-wrap: wrap;
   }
 
   .stat-num {
-    font-family: 'Fraunces', serif;
+    font-family: 'Bricolage Grotesque', sans-serif;
     font-size: 44px; font-weight: 600;
     color: var(--ink); line-height: 1;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.04em;
   }
 
-  .stat-label { font-size: 13px; color: var(--ink-muted); margin-top: 4px; }
+  .stat-num.stat-num-text { font-size: 40px; letter-spacing: -0.04em; }
+
+  .stat-label { font-size: 15px; color: var(--ink-soft); margin-top: 8px; font-weight: 500; line-height: 1.4; }
+  .stat-source { font-size: 13px; color: var(--ink-muted); margin-top: 8px; line-height: 1.5; font-weight: 400; }
 
   /* SECTIONS */
   section { padding: 100px 0; }
@@ -295,367 +329,350 @@
   .section-eyebrow {
     font-size: 11px; font-weight: 600;
     letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--clay-dark); margin-bottom: 16px;
+    color: var(--cobalt); margin-bottom: 16px;
   }
 
   .section-title {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(32px, 4vw, 52px);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(32px, 4vw, 48px);
     font-weight: 600; color: var(--ink);
-    line-height: 1.1; letter-spacing: -0.025em;
+    line-height: 1.08; letter-spacing: -0.035em;
     margin-bottom: 20px;
   }
 
   .section-intro {
     font-size: 17px; color: var(--ink-soft);
-    line-height: 1.75; max-width: 640px; font-weight: 300;
+    line-height: 1.65; max-width: 640px; font-weight: 400;
   }
 
-  /* CASE STUDY */
-  .case-study { background: var(--warm-white); }
+  /* HOW I WORK */
+  .how { background: var(--white); }
 
-  .case-study-layout {
+  .steps-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px; margin-top: 64px; align-items: start;
-  }
-
-  .detail-block { margin-bottom: 40px; }
-  .detail-block:last-child { margin-bottom: 0; }
-
-  .detail-block-label {
-    font-size: 11px; font-weight: 600;
-    letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--clay-dark); margin-bottom: 10px;
-  }
-
-  .detail-block p { font-size: 15px; color: var(--ink-soft); line-height: 1.8; font-weight: 300; }
-
-  .metrics-stack { display: flex; flex-direction: column; gap: 2px; }
-
-  .metric-row {
-    background: var(--cream); border-radius: 12px;
-    padding: 28px 32px; display: flex; align-items: center;
-    gap: 24px; transition: transform 0.2s;
-  }
-
-  .metric-row:hover { transform: translateX(6px); }
-
-  .metric-row-num {
-    font-family: 'Fraunces', serif;
-    font-size: 52px; font-weight: 600; color: var(--forest);
-    letter-spacing: -0.04em; line-height: 1; min-width: 110px;
-  }
-
-  .metric-row-title { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
-  .metric-row-sub { font-size: 13px; color: var(--ink-muted); font-weight: 300; }
-
-  /* AI SECTION */
-  .ai-section { background: var(--forest); }
-  .ai-section .section-eyebrow { color: var(--clay); }
-  .ai-section .section-title { color: var(--cream); }
-  .ai-section .section-intro { color: #8aada3; }
-
-  .comparison-wrap {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 2px; margin-top: 56px; border-radius: 16px; overflow: hidden;
-  }
-
-  .comp-col { padding: 40px; background: rgba(255,255,255,0.04); }
-  .comp-col.new-way { background: rgba(74,157,138,0.12); }
-
-  .comp-col-header { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
-
-  .comp-badge {
-    width: 28px; height: 28px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 700;
-  }
-
-  .comp-badge.old { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.4); }
-  .comp-badge.new { background: var(--teal-accent); color: white; }
-
-  .comp-col-header h4 { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 400; color: var(--cream); }
-
-  .comp-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
-
-  .comp-list li {
-    font-size: 14px; color: #8aada3;
-    padding-left: 20px; position: relative;
-    line-height: 1.6; font-weight: 300;
-  }
-
-  .comp-list li::before { content: '\2014'; position: absolute; left: 0; color: #5a8070; font-size: 12px; }
-  .comp-col.new-way .comp-list li { color: #cde0dc; }
-  .comp-col.new-way .comp-list li::before { color: var(--teal-accent); }
-
-  .demo-banners { display: flex; flex-direction: column; gap: 16px; margin-top: 48px; }
-
-  .demo-banner {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(201,169,122,0.3);
-    border-radius: 16px; padding: 36px 40px;
-    display: flex; align-items: center;
-    justify-content: space-between; gap: 32px; flex-wrap: wrap;
-  }
-
-  .demo-banner-text h4 {
-    font-family: 'Fraunces', serif; font-size: 22px;
-    font-weight: 400; color: var(--cream); margin-bottom: 6px;
-  }
-
-  .agent-badge {
-    display: inline-block;
-    background: rgba(201,169,122,0.15);
-    color: var(--clay);
-    font-size: 11px; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    padding: 4px 10px; border-radius: 100px;
-    margin-bottom: 10px;
-  }
-
-  .demo-banner-text p { font-size: 14px; color: #8aada3; font-weight: 300; }
-
-  .btn-demo {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--clay); color: var(--ink);
-    padding: 14px 28px; border-radius: 100px;
-    text-decoration: none; font-size: 14px; font-weight: 600;
-    white-space: nowrap; transition: background 0.2s, transform 0.15s;
-  }
-
-  .btn-demo:hover,
-  .btn-demo:focus-visible { background: var(--clay-dark); color: white; transform: translateY(-2px); outline: 3px solid var(--clay); outline-offset: 3px; }
-
-  /* SERVICES */
-  .services { background: var(--cream); }
-
-  .services-grid {
-    display: grid; grid-template-columns: repeat(2, 1fr);
-    gap: 2px; margin-top: 56px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 56px;
   }
 
   .service-card {
-    background: var(--warm-white); padding: 44px 40px;
-    transition: background 0.25s; position: relative; overflow: hidden;
+    background: var(--white);
+    padding: 40px 36px;
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    transition: border-color 0.2s;
   }
 
-  .service-card::after {
-    content: ''; position: absolute;
-    bottom: 0; left: 0; width: 0; height: 3px;
-    background: var(--rust); transition: width 0.35s ease;
+  .service-card:hover { border-color: var(--cobalt); }
+
+  .service-num {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 13px; color: var(--cobalt); margin-bottom: 24px;
+    font-weight: 500; letter-spacing: 0.05em;
   }
 
-  .service-card:hover::after { width: 100%; }
-  .service-card:hover { background: var(--sand); }
-
-  .service-num { font-family: 'Fraunces', serif; font-size: 13px; color: var(--clay); margin-bottom: 24px; font-weight: 300; letter-spacing: 0.05em; }
-
-  .service-card h3 { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; color: var(--ink); margin-bottom: 14px; letter-spacing: -0.02em; line-height: 1.25; }
-
-  .service-card p { font-size: 14px; color: var(--ink-soft); line-height: 1.75; font-weight: 300; }
-
-  /* PORTFOLIO CTA */
-  .portfolio-cta { background: var(--sand); padding: 80px 0; text-align: center; }
-  .portfolio-cta .section-eyebrow { color: var(--clay-dark); }
-  .portfolio-cta .section-title { color: var(--ink); margin-bottom: 16px; }
-
-  .portfolio-cta-body {
-    font-size: 17px; color: var(--ink-soft);
-    max-width: 580px; margin: 0 auto 40px;
-    line-height: 1.7; font-weight: 300;
+  .service-card h3 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 26px; font-weight: 600; color: var(--ink);
+    margin-bottom: 14px; letter-spacing: -0.03em; line-height: 1.2;
   }
 
-  /* TESTIMONIALS */
-  .testimonials { background: var(--warm-white); }
+  .service-card p { font-size: 17px; color: var(--ink-soft); line-height: 1.65; font-weight: 400; }
 
-  .testi-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-    gap: 28px; margin-top: 56px;
+  /* FEATURED WORK */
+  .work { background: var(--section); }
+
+  .work-stack { display: flex; flex-direction: column; gap: 24px; margin-top: 56px; }
+
+  .work-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 40px 44px;
   }
 
-  .testi-card {
-    background: var(--cream); border-radius: 16px;
-    padding: 44px; position: relative; transition: background 0.2s;
+  .work-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cobalt);
+    background: var(--cobalt-soft);
+    padding: 5px 12px;
+    border-radius: 6px;
+    margin-bottom: 16px;
   }
 
-  .testi-card:hover { background: var(--sand); }
-
-  .testi-card::before {
-    content: '\201C';
-    font-family: 'Fraunces', serif;
-    font-size: 96px; color: var(--clay); opacity: 0.25;
-    position: absolute; top: 12px; left: 28px; line-height: 1;
+  .work-badge-pilot {
+    color: var(--ink-soft);
+    background: var(--gray-2);
   }
 
-  .testi-text {
-    font-size: 16px; color: var(--ink-soft); line-height: 1.85;
-    padding-top: 36px; margin-bottom: 32px;
-    font-style: italic; font-weight: 300;
+  .work-badge-demo {
+    color: var(--cobalt);
+    background: var(--cobalt-soft);
   }
 
-  .testi-author {
-    display: flex; align-items: center; gap: 16px;
-    padding-top: 24px; border-top: 1px solid var(--mist);
+  .work-meta { font-size: 13px; font-weight: 500; letter-spacing: 0.02em; color: var(--ink-muted); margin-bottom: 10px; }
+  .work-card h3 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 14px;
   }
 
-  .author-av {
-    width: 48px; height: 48px; border-radius: 50%;
-    background: var(--forest); display: flex;
-    align-items: center; justify-content: center;
-    font-family: 'Fraunces', serif; font-weight: 600;
-    font-size: 17px; color: var(--clay); flex-shrink: 0;
+  .work-card p { font-size: 16px; color: var(--ink-soft); line-height: 1.7; font-weight: 400; }
+
+  .pilot-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 20px;
   }
 
-  .author-name { font-weight: 600; color: var(--ink); font-size: 15px; margin-bottom: 2px; }
-  .author-title { font-size: 12px; color: var(--ink-muted); line-height: 1.4; }
-  .author-rel { font-size: 11px; color: var(--rust); font-weight: 600; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .pilot-list li {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    font-weight: 400;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .pilot-list li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 10px;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--cobalt);
+  }
+
+  .work-metrics {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+  }
+
+  .metric-chip {
+    background: var(--gray);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 16px 20px;
+    min-width: 180px;
+  }
+
+  .metric-chip-num {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .metric-chip-label {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin-top: 6px;
+    font-weight: 400;
+  }
+
+  .demos-intro {
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+
+  .demo-list { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+
+  .demo-row {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .demo-row h3 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.03em;
+    line-height: 1.25;
+    margin: 8px 0 8px;
+  }
+
+  .demo-row p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; font-weight: 400; max-width: 640px; }
+
+  .btn-demo {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--cobalt); color: var(--white);
+    padding: 13px 24px; border-radius: 8px;
+    text-decoration: none; font-size: 14px; font-weight: 600;
+    white-space: nowrap; transition: background 0.2s;
+  }
+
+  .btn-demo:hover,
+  .btn-demo:focus-visible { background: var(--cobalt-dark); outline: 2px solid var(--cobalt); outline-offset: 3px; }
+
+  .work-footer {
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  /* MOCKUP: side images */
+  .work-card-img { display: grid; grid-template-columns: 1fr 260px; gap: 40px; align-items: start; }
+  .work-shot { margin: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #fff; }
+  .work-shot img { display: block; width: 100%; height: auto; }
+  .work-shot-placeholder { min-height: 130px; display: flex; align-items: center; justify-content: center; padding: 16px; border: 1px dashed var(--line); background: transparent; }
+  .work-shot-placeholder span { font-size: 12px; line-height: 1.5; color: var(--ink-muted); text-align: center; }
+  .build-icon { flex: 0 0 auto; width: 40px; height: 40px; color: var(--cobalt); }
+  .build-row .build-main { display: flex; gap: 18px; align-items: flex-start; }
+  @media (max-width: 720px) {
+    .work-card-img { grid-template-columns: 1fr 96px; gap: 16px; }
+    .work-shot-placeholder { min-height: 70px; padding: 6px; }
+    .work-shot-placeholder span { font-size: 9px; }
+    .build-icon { width: 32px; height: 32px; }
+  }
+  @media (max-width: 600px) {
+    .work-card-img { grid-template-columns: 1fr; gap: 20px; }
+  }
+
+  .pilot-rows { margin-top: 12px; }
+  .pilot-rows .build-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .pilot-rows .build-row:first-child { border-top: 1px solid var(--line); }
+
+  /* BUILDS */
+  .builds { background: var(--white); }
+  .builds-intro { font-size: 18px; color: var(--ink-soft); line-height: 1.65; font-weight: 400; max-width: 680px; margin-bottom: 24px; }
+  .build-group { margin-top: 48px; }
+  .build-group h3 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 24px; font-weight: 600; color: var(--ink); letter-spacing: -0.03em; padding-bottom: 14px; border-bottom: 2px solid var(--ink); }
+  .build-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding: 24px 0; border-bottom: 1px solid var(--line); }
+  .build-row h4 { font-family: 'Hanken Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 6px; letter-spacing: -0.015em; }
+  .build-row p { font-size: 16px; color: var(--ink-soft); line-height: 1.65; font-weight: 400; max-width: 640px; }
+  .build-link { font-size: 15px; font-weight: 600; color: var(--cobalt); text-decoration: none; border-bottom: 1px solid var(--cobalt); padding-bottom: 2px; white-space: nowrap; }
+  .build-link:hover, .build-link:focus-visible { color: var(--cobalt-dark); border-bottom-color: var(--cobalt-dark); outline: none; }
 
   /* ABOUT */
-  .about { background: var(--sand); }
+  .about { background: var(--section); }
 
-  .about-layout {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 80px; align-items: start; margin-top: 56px;
-  }
-
-  .about-text p { font-size: 16px; color: var(--ink-soft); line-height: 1.85; font-weight: 300; margin-bottom: 20px; }
-
-  .about-pullquote {
-    font-family: 'Fraunces', serif;
-    font-size: 24px; font-weight: 300; font-style: italic;
-    color: var(--forest); line-height: 1.4;
-    border-left: 3px solid var(--clay);
-    padding-left: 24px; margin: 32px 0;
-  }
+  .about-text { max-width: 720px; margin-top: 8px; }
+  .about-text p { font-size: 17px; color: var(--ink-soft); line-height: 1.7; font-weight: 400; margin-bottom: 20px; }
 
   .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
 
   .tag {
-    font-size: 12px; font-weight: 500; color: var(--forest);
-    background: rgba(45,74,62,0.1); padding: 7px 14px;
-    border-radius: 100px; letter-spacing: 0.02em;
+    font-size: 12px; font-weight: 500; color: var(--cobalt);
+    background: var(--white);
+    border: 1px solid var(--line);
+    padding: 7px 14px;
+    border-radius: 6px; letter-spacing: 0.02em;
   }
 
-  .about-card { background: var(--forest); border-radius: 20px; padding: 48px 40px; }
-
-  .about-card-label { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--clay); margin-bottom: 24px; }
-
-  .credential-list { list-style: none; display: flex; flex-direction: column; gap: 18px; }
-
-  .credential-list li {
-    display: flex; align-items: flex-start; gap: 14px;
-    font-size: 14px; color: rgba(250,247,242,0.8);
-    line-height: 1.5; font-weight: 300;
-  }
-
-  .cred-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--clay); margin-top: 6px; flex-shrink: 0; }
-
-  /* BLOG */
-  .blog { background: var(--warm-white); }
+  /* WRITING */
+  .blog { background: var(--white); }
 
   .blog-header-row {
     display: flex; align-items: flex-end;
-    justify-content: space-between; margin-bottom: 56px;
+    justify-content: space-between; margin-bottom: 40px;
     gap: 32px; flex-wrap: wrap;
   }
 
-  .blog-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2px; }
-
   .blog-card {
-    background: var(--cream); padding: 40px;
-    transition: background 0.2s; display: flex; flex-direction: column;
+    background: var(--gray);
+    border: 1px solid var(--line);
+    padding: 40px;
+    transition: border-color 0.2s, background 0.2s;
+    display: flex; flex-direction: column;
+    text-decoration: none;
+    max-width: 680px;
+    border-radius: 8px;
   }
 
-  .blog-card:hover { background: var(--sand); }
-  .blog-card.featured { grid-row: span 2; }
+  .blog-card:hover { background: var(--white); border-color: var(--cobalt); }
 
   .blog-tag {
     display: inline-block; font-size: 10px; font-weight: 700;
     letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--rust); margin-bottom: 16px;
-  }
-
-  .blog-tag-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-  .blog-tag-row .blog-tag { margin-bottom: 0; }
-
-  .blog-badge-new {
-    display: inline-block; font-size: 10px; font-weight: 700;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--warm-white); background: var(--forest);
-    padding: 3px 10px; border-radius: 100px;
+    color: var(--cobalt); margin-bottom: 16px;
   }
 
   .blog-card h3 {
-    font-family: 'Fraunces', serif; font-size: 20px; font-weight: 600;
-    color: var(--ink); line-height: 1.25; letter-spacing: -0.02em; margin-bottom: 12px;
+    font-family: 'Bricolage Grotesque', sans-serif; font-size: 26px; font-weight: 600;
+    color: var(--ink); line-height: 1.2; letter-spacing: -0.03em; margin-bottom: 12px;
   }
 
-  .blog-card.featured h3 { font-size: 28px; }
-
-  .blog-card p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; font-weight: 300; flex: 1; }
+  .blog-card p { font-size: 15px; color: var(--ink-soft); line-height: 1.65; font-weight: 400; flex: 1; }
 
   .blog-meta { font-size: 12px; color: var(--ink-muted); margin-top: 24px; }
-
-  .blog-coming-soon {
-    font-size: 14px; font-weight: 500;
-    color: var(--ink-muted); white-space: nowrap;
-    font-style: italic;
-  }
+  .blog-stack { display: flex; flex-direction: column; gap: 16px; max-width: 680px; }
+  .blog-stack .blog-card { max-width: none; }
 
   /* CONTACT */
-  .contact { background: var(--ink); }
+  .contact { background: var(--navy); }
 
   .contact-inner { max-width: 800px; margin: 0 auto; text-align: center; }
 
-  .contact .section-eyebrow { color: var(--clay); }
-  .contact .section-title { color: var(--cream); margin-bottom: 20px; }
+  .contact .section-eyebrow { color: #9db4f0; }
+  .contact .section-title { color: var(--white); margin-bottom: 20px; }
 
-  .contact-body { font-size: 18px; color: #8fa89e; line-height: 1.7; margin-bottom: 48px; font-weight: 300; }
+  .contact-body { font-size: 18px; color: var(--navy-muted); line-height: 1.65; margin-bottom: 48px; font-weight: 400; }
 
   .contact-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
   .btn-contact-primary {
     display: inline-flex; align-items: center; gap: 10px;
-    background: var(--clay); color: var(--ink);
-    padding: 16px 36px; border-radius: 100px;
+    background: var(--cobalt); color: var(--white);
+    padding: 15px 32px; border-radius: 8px;
     text-decoration: none; font-size: 15px; font-weight: 600;
-    transition: background 0.2s, transform 0.15s;
+    transition: background 0.2s;
   }
 
   .btn-contact-primary:hover,
-  .btn-contact-primary:focus-visible { background: var(--clay-dark); color: white; transform: translateY(-2px); outline: 3px solid var(--clay); outline-offset: 3px; }
+  .btn-contact-primary:focus-visible { background: var(--cobalt-dark); outline: 2px solid #9db4f0; outline-offset: 3px; }
 
   .btn-contact-secondary {
     display: inline-flex; align-items: center; gap: 10px;
-    background: transparent; color: var(--cream);
-    border: 2px solid rgba(250,247,242,0.3);
-    padding: 14px 34px; border-radius: 100px;
+    background: transparent; color: var(--white);
+    border: 1.5px solid rgba(255,255,255,0.35);
+    padding: 14px 32px; border-radius: 8px;
     text-decoration: none; font-size: 15px; font-weight: 600;
-    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    transition: border-color 0.2s, color 0.2s;
   }
 
   .btn-contact-secondary:hover,
-  .btn-contact-secondary:focus-visible { border-color: var(--clay); color: var(--clay); transform: translateY(-2px); outline: none; }
-
-  .contact-note { margin-top: 40px; font-size: 13px; color: #6e8880; letter-spacing: 0.05em; }
+  .btn-contact-secondary:focus-visible { border-color: #9db4f0; color: #9db4f0; outline: none; }
 
   /* FOOTER */
   footer {
-    background: var(--ink);
-    border-top: 1px solid rgba(255,255,255,0.06);
+    background: var(--navy);
+    border-top: 1px solid rgba(255,255,255,0.1);
     padding: 32px 48px;
     display: flex; align-items: center;
     justify-content: space-between; flex-wrap: wrap; gap: 16px;
   }
 
-  .footer-logo { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; color: #6e8880; text-decoration: none; }
-  footer p { font-size: 12px; color: #6e8880; }
+  .footer-logo { font-family: 'Bricolage Grotesque', sans-serif; font-size: 18px; font-weight: 600; color: var(--navy-muted); text-decoration: none; letter-spacing: -0.03em; }
+  footer p { font-size: 12px; color: var(--navy-muted); }
 
   /* FOCUS VISIBLE */
-  :focus-visible { outline: 3px solid var(--rust); outline-offset: 3px; border-radius: 4px; }
-  .nav-drawer a:focus-visible { outline: 3px solid var(--clay); outline-offset: 4px; border-radius: 4px; }
+  :focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; border-radius: 4px; }
+  .nav-drawer a:focus-visible { outline: 2px solid #9db4f0; outline-offset: 4px; border-radius: 4px; }
 
   /* SCROLL REVEAL */
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -669,48 +686,66 @@
     nav { padding: 0 24px; }
     footer { padding: 24px; }
     .hero .container { padding: 0 24px; }
-    .hero-decoration { width: 200px; height: 200px; top: 5%; right: 2%; }
-    .hero-stats { gap: 32px; }
-    .case-study-layout { grid-template-columns: 1fr; gap: 48px; }
-    .comparison-wrap { grid-template-columns: 1fr; }
-    .services-grid { grid-template-columns: 1fr; }
-    .about-layout { grid-template-columns: 1fr; gap: 48px; }
-    .blog-grid { grid-template-columns: 1fr; }
-    .blog-card.featured { grid-row: span 1; }
-    .demo-banner { flex-direction: column; align-items: flex-start; }
-    .testi-grid { grid-template-columns: 1fr; }
+    .proof-grid { grid-template-columns: 1fr; gap: 32px; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .work-card { padding: 32px 28px; }
+    .demo-row { flex-direction: column; align-items: flex-start; }
+    .build-row { flex-direction: column; align-items: flex-start; gap: 12px; }
   }
 
   @media (max-width: 600px) {
     section { padding: 72px 0; }
+    .proof { padding: 56px 0; }
+    .hero { min-height: 0; padding: 112px 0 72px; }
     .hero h1 { font-size: 36px; }
-    .hero-stats { flex-direction: column; gap: 24px; }
+    .hero h1 em { display: block; }
+    .hero-eyebrow { letter-spacing: 0.08em; font-size: 11px; flex-wrap: wrap; row-gap: 4px; }
     .stat-num { font-size: 36px; }
-    .portfolio-cta { padding: 64px 0; }
+    .work-card h3 { font-size: 22px; }
+    .nav-drawer { width: 100vw; padding: 80px 32px; }
+    .nav-drawer a { font-size: 34px; }
   }
+
+  /* COLOR ACCENTS */
+  .stat-num { color: var(--cobalt); }
+  .hero h1 em { text-decoration: underline; text-decoration-color: var(--marigold); text-decoration-thickness: 5px; text-underline-offset: 8px; text-decoration-skip-ink: none; }
+  .hero-eyebrow::before { height: 2px; background: var(--marigold); }
+  .section-title::after { content: ''; display: block; width: 44px; height: 4px; border-radius: 2px; background: var(--marigold); margin-top: 16px; }
+  .service-card { border-top: 4px solid var(--cobalt); }
+  .metric-chip { background: var(--cobalt-soft); border-color: #c5d3f3; }
+  .metric-chip-num { color: var(--cobalt); }
+  .build-icon { box-sizing: border-box; width: 44px; height: 44px; padding: 8px; background: var(--cobalt-soft); border-radius: 10px; }
+  .contact .section-title::after { background: var(--marigold); }
+  @media (max-width: 768px) { .build-icon { width: 38px; height: 38px; padding: 8px; } }
+
+  /* NAVY STATS BAND */
+  .proof { background: var(--navy); border-top: 0; border-bottom: 0; }
+  .proof .stat-num { color: var(--white); }
+  .proof .stat-label { color: #e6eaf2; }
+  .proof .stat-source { color: var(--navy-muted); }
+  .proof .stat-num::after { content: ''; display: block; width: 28px; height: 3px; border-radius: 2px; background: var(--marigold); margin-top: 14px; }
 </style>
 </head>
 <body>
 
+<!-- LOCAL PREVIEW ONLY. Not the live site. Do not deploy from this folder. -->
+
 <div class="nav-overlay" id="navOverlay"></div>
 
 <nav>
-  <a href="#" class="nav-logo">Kara Smart<span>.</span></a>
+  <a href="index.html" class="nav-logo">Kara Smart<span>.</span></a>
   <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="navDrawer">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
 <div class="nav-drawer" id="navDrawer" aria-hidden="true">
-  <a href="#work">Work</a>
-  <a href="#ai">AI Learning</a>
-  <a href="#services">Services</a>
-  <a href="portfolio.html">Portfolio</a>
-  <a href="building-out-loud.html">Building Out Loud</a>
+  <a href="portfolio.html">Work</a>
+  <a href="#builds">Builds</a>
   <a href="#about">About</a>
-  <a href="#blog">Writing</a>
+  <a href="#writing">Writing</a>
   <a href="#contact">Contact</a>
-  <p class="drawer-tagline">Houston &middot; L&amp;D &middot; AI</p>
+  <p class="drawer-tagline">Business process analysis &amp; AI-enabled workflows</p>
 </div>
 
 <!-- HERO -->
@@ -718,216 +753,207 @@
   <div class="hero-bg"></div>
   <div class="hero-decoration" aria-hidden="true"></div>
   <div class="container">
-    <p class="hero-eyebrow">L&amp;D Consultant &middot; Houston, TX</p>
-    <h1>I build <em>learning systems</em> that actually change how people work.</h1>
-    <p class="hero-sub">Agile transformation and operational overhauls for L&amp;D teams that have outgrown ad-hoc delivery &mdash; with AI-powered training as the newest tool in the kit.</p>
+    <p class="hero-eyebrow">Business Process Analyst &middot; <span class="nowrap">Houston, TX</span></p>
+    <h1>I simplify <em>complex work.</em></h1>
+    <p class="hero-sub">Business process analyst and learning designer who maps how work really flows, fixes what&rsquo;s broken, and builds practical AI tools to keep it that way. As a former teacher, I explain change in plain language, then test it small before launching big.</p>
     <div class="hero-actions">
-      <a href="#work" class="btn-primary">See My Work &darr;</a>
-      <a href="#contact" class="btn-ghost">Let&rsquo;s talk &rarr;</a>
+      <a href="#work" class="btn-primary">See my work &darr;</a>
+      <a href="#contact" class="btn-ghost">Get in touch &rarr;</a>
     </div>
-    <div class="hero-stats">
-      <div class="stat-item">
+  </div>
+</section>
+
+<!-- PROOF STRIP -->
+<section class="proof" aria-label="Selected results">
+  <div class="container">
+    <div class="proof-grid">
+      <div class="stat-item reveal">
         <div class="stat-num">86%</div>
-        <div class="stat-label">Reduction in out-of-scope work</div>
+        <div class="stat-label">Drop in out-of-scope work</div>
+        <div class="stat-source">Earlier intake-to-delivery transformation at Optum, Instructional Designer role, Feb&ndash;Sep 2024</div>
       </div>
-      <div class="stat-item">
-        <div class="stat-num">50+</div>
-        <div class="stat-label">eLearning courses in 4 months</div>
+      <div class="stat-item reveal reveal-d1">
+        <div class="stat-num">99%</div>
+        <div class="stat-label">Adoption of the agile process, measured by the daily stand-up response rate</div>
+        <div class="stat-source">Earlier intake-to-delivery transformation at Optum, Instructional Designer role, Feb&ndash;Sep 2024</div>
       </div>
-      <div class="stat-item">
-        <div class="stat-num">2026</div>
-        <div class="stat-label">Building what&rsquo;s next in L&amp;D</div>
+      <div class="stat-item reveal reveal-d2">
+        <div class="stat-num">77%</div>
+        <div class="stat-label">Of the team reported less stress</div>
+        <div class="stat-source">Earlier intake-to-delivery transformation at Optum, Instructional Designer role, Feb&ndash;Sep 2024</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CASE STUDY -->
-<section class="case-study" id="work">
+<!-- HOW I WORK -->
+<section class="how" id="how">
   <div class="container">
-    <p class="section-eyebrow reveal">Proven Results</p>
-    <h2 class="section-title reveal">The Optum Transformation</h2>
-    <p class="section-intro reveal">How a complete agile overhaul turned a drowning L&amp;D team into a high-performing operation &mdash; in months, not years.</p>
-
-    <div class="case-study-layout">
-      <div class="case-study-left reveal">
-        <div class="detail-block">
-          <div class="detail-block-label">The Problem</div>
-          <p>Optum&rsquo;s L&amp;D team was drowning in ad-hoc requests, unclear intake processes, and constant context-switching. Projects routinely ran over budget. Designers were burning out. Stakeholders were frustrated by slow turnaround times and inconsistent quality.</p>
-        </div>
-        <div class="detail-block">
-          <div class="detail-block-label">The Approach</div>
-          <p>I designed and led a complete agile transformation &mdash; implementing Scrum ceremonies, rebuilding the intake system from scratch, creating transparent capacity planning tools, and coaching team members on sustainable workflows. Real change management with real buy-in.</p>
-        </div>
-        <div class="detail-block">
-          <div class="detail-block-label">The Outcome</div>
-          <p>Within months, chaos became clarity. Leadership got visibility. Designers got breathing room. Stakeholders got better, faster results. The team transformed from reactive firefighting to proactive, scalable delivery.</p>
-        </div>
+    <h2 class="section-title reveal">How I work</h2>
+    <div class="steps-grid reveal">
+      <div class="service-card">
+        <h3>Discover</h3>
+        <p>Interview, observe, and read the data to see how work actually flows, not how the chart says it does.</p>
       </div>
+      <div class="service-card">
+        <h3>Diagnose</h3>
+        <p>Find the root cause behind the delays, rework, and workarounds.</p>
+      </div>
+      <div class="service-card">
+        <h3>Design and pilot</h3>
+        <p>Redesign the workflow, build a lightweight tool or AI agent, and pilot it with real users before scaling.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <div class="case-study-right reveal reveal-d1">
-        <div class="metrics-stack">
-          <div class="metric-row">
-            <div class="metric-row-num">86%</div>
-            <div class="metric-row-text">
-              <div class="metric-row-title">Out-of-scope work reduced</div>
-              <div class="metric-row-sub">From chaotic to predictable</div>
+<!-- FEATURED WORK -->
+<section class="work" id="work">
+  <div class="container">
+    <h2 class="section-title reveal">Featured work</h2>
+
+    <div class="work-stack">
+      <article class="work-card reveal">
+        <p class="work-meta">Optum &middot; Business Process Analyst &middot; Sep 2024&ndash;present</p>
+        <h3>Process pilots</h3>
+        <div class="pilot-rows">
+          <div class="build-row">
+            <div class="build-main">
+              <svg class="build-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V14M10 20V9M16 20V4M2 20h20"/></svg>
+              <div>
+                <h4>Project sizing</h4>
+                <p>A t-shirt-size framework for sizing projects by deliverable, built from an analysis of 1,100+ completed projects. Currently being piloted by a small test group.</p>
+              </div>
             </div>
           </div>
-          <div class="metric-row">
-            <div class="metric-row-num">77%</div>
-            <div class="metric-row-text">
-              <div class="metric-row-title">Of team reported less stress</div>
-              <div class="metric-row-sub">Team surveys post-transformation</div>
-            </div>
-          </div>
-          <div class="metric-row">
-            <div class="metric-row-num">99%</div>
-            <div class="metric-row-text">
-              <div class="metric-row-title">Daily standup response rate</div>
-              <div class="metric-row-sub">Team alignment achieved</div>
+          <div class="build-row">
+            <div class="build-main">
+              <svg class="build-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.3-4.3"/></svg>
+              <div>
+                <h4>Discovery process</h4>
+                <p>Three agents I built to walk through the discovery process, tested against each other to see which instructions work best. Currently being piloted by a small test group.</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </article>
+
+      <article class="work-card work-card-img reveal">
+        <div class="work-text">
+        <p class="work-meta">Optum &middot; Instructional Designer &middot; Feb&ndash;Sep 2024</p>
+        <h3>From request to delivery: a shared intake process</h3>
+        <p>The team was handling ad-hoc requests with no consistent intake. I led a shared intake-through-delivery redesign with automated Smartsheet intake, a reusable charter template, and an agile cadence. Out-of-scope work dropped 86% and the new process reached 99% adoption, measured by the team&rsquo;s daily stand-up response rate.</p>
+        <div class="work-metrics">
+          <div class="metric-chip">
+            <div class="metric-chip-num">86%</div>
+            <div class="metric-chip-label">Less out-of-scope work</div>
+          </div>
+          <div class="metric-chip">
+            <div class="metric-chip-num">99%</div>
+            <div class="metric-chip-label">Adoption of the agile process, measured by the daily stand-up response rate</div>
+          </div>
+          <div class="metric-chip">
+            <div class="metric-chip-num">77%</div>
+            <div class="metric-chip-label">Of the team reported less stress</div>
+          </div>
+        </div>
+        </div>
+        <figure class="work-shot">
+          <img src="mock-intake-flow.png" width="900" height="455" alt="Agile process flow for requesters: quarterly agile planning, product sprint, sprint review" loading="lazy">
+        </figure>
+      </article>
+    </div>
+
+    <div class="work-footer reveal">
+      <a href="portfolio.html" class="btn-ghost">See the full portfolio &rarr;</a>
     </div>
   </div>
 </section>
 
-<!-- AI SECTION -->
-<section class="ai-section" id="ai">
+<!-- BUILDS -->
+<section class="builds" id="builds">
   <div class="container">
-    <p class="section-eyebrow reveal">The Future of L&amp;D</p>
-    <h2 class="section-title reveal">AI-Enhanced Learning Solutions</h2>
-    <p class="section-intro reveal">Most L&amp;D consultants are still building courses in Storyline and Rise. Here&rsquo;s where I&rsquo;m taking that work next.</p>
+    <h2 class="section-title reveal">Builds</h2>
+    <p class="builds-intro reveal">I like making the thing, not just describing it. These are working agents, tools, and learning experiences I&rsquo;ve built to take the busywork out of real workflows. Some come from my day job and some are personal projects.</p>
 
-    <div class="comparison-wrap reveal">
-      <div class="comp-col">
-        <div class="comp-col-header">
-          <div class="comp-badge old">&#10005;</div>
-          <h4>Traditional Approach (2024)</h4>
-        </div>
-        <ul class="comp-list">
-          <li>Linear navigation &mdash; click &ldquo;Next&rdquo; 47 times</li>
-          <li>Same content for every learner</li>
-          <li>Quiz at the end as gatekeeper</li>
-          <li>No way to ask questions or go deeper</li>
-          <li>30-minute mandatory slog</li>
-        </ul>
-      </div>
-      <div class="comp-col new-way">
-        <div class="comp-col-header">
-          <div class="comp-badge new">&#10003;</div>
-          <h4>AI-Enhanced Approach (2026)</h4>
-        </div>
-        <ul class="comp-list">
-          <li>Conversational AI coach guides the experience</li>
-          <li>Personalized scenarios based on learner responses</li>
-          <li>Learning assessed through dialogue, not multiple choice</li>
-          <li>Ask any question, get instant expert answers</li>
-          <li>Engaging, memorable, and measurably effective</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="demo-banners">
-      <div class="demo-banner reveal">
-        <div class="demo-banner-text">
-          <h4>Live Example: Dropped Objects Safety Training</h4>
-          <p>An AI-powered safety coach for the oil &amp; gas industry. Same learning objectives, completely different experience.</p>
-        </div>
-        <a href="dropped-objects-safety-coach.html" class="btn-demo" target="_blank">Launch Demo &rarr;</a>
-      </div>
-      <div class="demo-banner reveal reveal-d1">
-        <div class="demo-banner-text">
-          <h4>Live Example: ReviewSync &mdash; L&amp;D Review &amp; Approval Platform</h4>
-          <p>Built to solve the chaotic back-and-forth between Instructional Designers and SMEs. Centralized review rounds, deadlines, and bottleneck tracking.</p>
-        </div>
-        <a href="review-tool.html" class="btn-demo" target="_blank">Launch Demo &rarr;</a>
-      </div>
-      <div class="demo-banner reveal reveal-d2">
-        <div class="demo-banner-text">
-          <span class="agent-badge">AI Agent</span>
-          <h4>Live Example: Crew Compliance Agent</h4>
-          <p>An agent that monitors a safety training roster, flags compliance gaps, and drafts the follow-up messages a supervisor would send &mdash; not a coach that guides a learner, an agent that reasons over data and acts.</p>
-        </div>
-        <a href="compliance-agent.html" class="btn-demo" target="_blank">Launch Demo &rarr;</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section class="services" id="services">
-  <div class="container">
-    <p class="section-eyebrow reveal">What I Build</p>
-    <h2 class="section-title reveal">Solutions That Scale</h2>
-    <p class="section-intro reveal">For growing companies that need to scale L&amp;D without adding headcount &mdash; or sacrificing quality.</p>
-
-    <div class="services-grid reveal">
-      <div class="service-card">
-        <div class="service-num">01</div>
-        <h3>L&amp;D Operations Transformation</h3>
-        <p>Agile coaching, intake redesign, workflow optimization. Turn chaotic L&amp;D teams into high-performing operations with predictable delivery and sustainable pace.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-num">02</div>
-        <h3>AI-Powered Learning Systems</h3>
-        <p>Custom conversational coaches, adaptive learning paths, personalized training that replaces cookie-cutter LMS courses. Built from scratch, not templates.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-num">03</div>
-        <h3>Onboarding &amp; Compliance Design</h3>
-        <p>Onboarding curricula, compliance training, and performance support content built around how your team actually works &mdash; not off-the-shelf courses stretched to fit.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-num">04</div>
-        <h3>L&amp;D Operations Tools</h3>
-        <p>Intake systems, capacity planning dashboards, project tracking infrastructure &mdash; the operational backbone that makes L&amp;D scalable and measurable.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PORTFOLIO CTA -->
-<section class="portfolio-cta">
-  <div class="container reveal">
-    <p class="section-eyebrow">Work Samples</p>
-    <h2 class="section-title">See the Full Portfolio</h2>
-    <p class="portfolio-cta-body">Job aids, eLearning courses, animated videos, and process documentation &mdash; a curated collection of instructional design work across healthcare, energy, and operations.</p>
-    <a href="portfolio.html" class="btn-primary">View Portfolio &rarr;</a>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testimonials" id="testimonials">
-  <div class="container">
-    <p class="section-eyebrow reveal">What People Say</p>
-    <h2 class="section-title reveal">Recommendations</h2>
-    <p class="section-intro reveal">From colleagues and managers who experienced the work firsthand.</p>
-
-    <div class="testi-grid">
-      <div class="testi-card reveal reveal-d1">
-        <p class="testi-text">Kara has led our team in transitioning to agile methodologies, resulting in remarkable improvements in productivity and outcomes. Her leadership has redefined and optimized our process flows, creating a more efficient and positive team culture.</p>
-        <div class="testi-author">
-          <div class="author-av">MM</div>
+    <div class="build-group reveal">
+      <h3>AI agents</h3>
+      <div class="build-row">
+        <div class="build-main">
+          <svg class="build-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg>
           <div>
-            <div class="author-name">Michaela Menigo, CSM&reg;</div>
-            <div class="author-title">L&amp;D Leader &middot; Scrum Master &middot; Instructional Designer</div>
-            <div class="author-rel">Senior Colleague at Optum &middot; January 2025</div>
+            <h4>About 10 agents in everyday work tools</h4>
+          <p>Built in native tools like Copilot to cut manual work for project managers and instructional designers. They live inside work tools, so there&rsquo;s no public demo, but I&rsquo;m happy to walk through how they work.</p>
           </div>
         </div>
       </div>
-      <div class="testi-card reveal reveal-d2">
-        <p class="testi-text">Kara is truly the definition of efficiency, organization, and autonomy. Her ability to balance structure with flexibility, all while fostering a culture of kind and supportive partnership, has made a lasting impact. If every team had a Kara, things would run effortlessly.</p>
-        <div class="testi-author">
-          <div class="author-av">KF</div>
+    </div>
+
+    <div class="build-group reveal">
+      <h3>Workflow tools</h3>
+      <div class="build-row">
+        <div class="build-main">
+          <svg class="build-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l2 2 4-4"/><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
           <div>
-            <div class="author-name">Kelsey Funk</div>
-            <div class="author-title">Instructional Designer &middot; Educational Consultant</div>
-            <div class="author-rel">Direct Manager at Optum &middot; January 2025</div>
+            <h4>Crew Compliance Agent</h4>
+          <p>Reviews a training roster, flags gaps, and drafts follow-ups. Demo with sample data.</p>
           </div>
         </div>
+        <a href="compliance-agent.html" class="build-link">Try the demo &rarr;</a>
+      </div>
+      <div class="build-row">
+        <div class="build-main">
+          <svg class="build-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/></svg>
+          <div>
+            <h4>ReviewSync</h4>
+          <p>A review-and-approval tool that tracks rounds, deadlines, and bottlenecks. Demo with sample data.</p>
+          </div>
+        </div>
+        <a href="review-tool.html" class="build-link">Try the demo &rarr;</a>
+      </div>
+    </div>
+
+    <div class="build-group reveal">
+      <h3>Learning and customer education</h3>
+      <div class="build-row">
+        <div class="build-main">
+          <svg class="build-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>
+          <div>
+            <h4>Dropped Objects Safety Coach</h4>
+          <p>Conversational safety training for oil and gas workers. Demo with sample data.</p>
+          </div>
+        </div>
+        <a href="dropped-objects-safety-coach.html" class="build-link">Try the demo &rarr;</a>
+      </div>
+      <div class="build-row">
+        <div class="build-main">
+          <svg class="build-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6M18 8v6M15 11h6"/></svg>
+          <div>
+            <h4>Employee onboarding experience</h4>
+          <p>An interactive onboarding journey for a small business, with policies, role training, knowledge checks, and an owner view of staff progress. Demo with sample data.</p>
+          </div>
+        </div>
+        <a href="bloom-onboarding.html" class="build-link">Try the demo &rarr;</a>
+      </div>
+      <div class="build-row">
+        <div class="build-main">
+          <svg class="build-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l5-2 6 2 5-2v14l-5 2-6-2-5 2z"/><path d="M9 4v14M15 6v14"/></svg>
+          <div>
+            <h4>New client onboarding experience</h4>
+          <p>A step-by-step welcome path that walks a new client from sign-up to their first visit. Demo with sample data.</p>
+          </div>
+        </div>
+        <a href="bloom-client-onboarding.html" class="build-link">Try the demo &rarr;</a>
+      </div>
+      <div class="build-row">
+        <div class="build-main">
+          <svg class="build-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5c3-1 6-1 8 1 2-2 5-2 8-1v13c-3-1-6-1-8 1-2-2-5-2-8-1z"/><path d="M12 6v13"/></svg>
+          <div>
+            <h4>Course samples and job aids</h4>
+          <p>Storyline interactions, a safety course intro, and a stakeholder intake guide.</p>
+          </div>
+        </div>
+        <a href="portfolio.html" class="build-link">See the samples &rarr;</a>
       </div>
     </div>
   </div>
@@ -936,80 +962,40 @@
 <!-- ABOUT -->
 <section class="about" id="about">
   <div class="container">
-    <p class="section-eyebrow reveal">Why I&rsquo;m Different</p>
-    <h2 class="section-title reveal">The Rare Combination</h2>
-
-    <div class="about-layout">
-      <div class="about-text reveal">
-        <p>Most L&amp;D consultants fall into two camps: traditional instructional designers who know learning theory but are stuck using outdated tools &mdash; or developers and AI enthusiasts who can build cool tech but don&rsquo;t understand how L&amp;D actually operates inside organizations.</p>
-        <div class="about-pullquote">
-          &ldquo;L&amp;D operations expertise + proven results + AI development capability &mdash; in one person.&rdquo;
-        </div>
-        <p>As a Certified Scrum Master, I transformed how an instructional design team at Optum operated &mdash; reducing chaos, improving morale, and delivering measurable business impact. Now I apply that same operational thinking to build AI-powered learning solutions that didn&rsquo;t exist two years ago.</p>
-        <p>I don&rsquo;t just recommend tools. I build them. I don&rsquo;t just design processes. I lead teams through them.</p>
-        <div class="tags">
-          <span class="tag">Certified Scrum Master</span>
-          <span class="tag">Agile Transformation Leader</span>
-          <span class="tag">AI Developer</span>
-          <span class="tag">Houston-Based</span>
-          <span class="tag">Energy &middot; Healthcare &middot; Tech</span>
-        </div>
-      </div>
-
-      <div class="about-visual reveal reveal-d1">
-        <div class="about-card">
-          <div class="about-card-label">Background &amp; Credentials</div>
-          <ul class="credential-list">
-            <li><div class="cred-dot"></div><span>Certified Scrum Master &mdash; led agile transformation at Optum Health</span></li>
-            <li><div class="cred-dot"></div><span>Built 50+ eLearning courses in 4 months at Lowe&rsquo;s Companies</span></li>
-            <li><div class="cred-dot"></div><span>Designed SharePoint intake system used across enterprise L&amp;D team</span></li>
-            <li><div class="cred-dot"></div><span>AI developer &mdash; building custom learning tools for energy &amp; healthcare</span></li>
-            <li><div class="cred-dot"></div><span>Houston-based, serving clients nationwide</span></li>
-          </ul>
-        </div>
+    <h2 class="section-title reveal">About</h2>
+    <div class="about-text reveal">
+      <p>I&rsquo;m a Business Process Analyst at Optum, working on learning and development operations. Before that I was an instructional designer who led an intake-to-delivery transformation, and before that I taught for years. That mix is why I care about both the process and the people who have to live in it. Certified Scrum Master. Texas A&amp;M graduate.</p>
+      <div class="tags">
+        <span class="tag">Business Process Analyst</span>
+        <span class="tag">Certified Scrum Master</span>
+        <span class="tag">Texas A&amp;M graduate</span>
+        <span class="tag">Houston, TX</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- BLOG -->
-<section class="blog" id="blog">
+<!-- WRITING -->
+<section class="blog" id="writing">
   <div class="container">
     <div class="blog-header-row">
       <div>
-        <p class="section-eyebrow reveal">Thinking Out Loud</p>
-        <h2 class="section-title reveal" style="margin-bottom:0">Writing &amp; Ideas</h2>
+        <h2 class="section-title reveal" style="margin-bottom:0">Writing</h2>
       </div>
     </div>
-
-    <div class="blog-grid reveal">
-      <a href="blog-intake-problem.html" class="blog-card featured" style="text-decoration:none;">
-        <div class="blog-tag-row">
-          <span class="blog-tag">Agile L&amp;D</span>
-          <span class="blog-badge-new">New</span>
-        </div>
-        <h3>The Intake Problem: Why L&amp;D Teams Stay Stuck in Reactive Mode</h3>
-        <p>Most L&amp;D intake processes were never designed. They just accumulated. Here&rsquo;s how to fix that.</p>
-        <div class="blog-meta">5 min read</div>
-      </a>
-      <div class="blog-card">
-        <span class="blog-tag">AI in L&amp;D</span>
-        <h3>Why Your LMS Is Becoming Obsolete (And What to Do About It)</h3>
-        <p>The traditional LMS was built for a world of compliance checkboxes and linear navigation. AI is making that world irrelevant &mdash; here&rsquo;s what the transition actually looks like from inside an organization, and what smart L&amp;D leaders are doing now.</p>
-        <div class="blog-meta">Coming soon &middot; 8 min read</div>
-      </div>
-      <div class="blog-card">
-        <span class="blog-tag">Operations</span>
-        <h3>Scrum for L&amp;D: What Works, What Doesn&rsquo;t, and What Nobody Tells You</h3>
-        <p>Lessons from leading an agile transformation on a team that had never heard of a sprint.</p>
-        <div class="blog-meta">Coming soon &middot; 6 min read</div>
-      </div>
-      <div class="blog-card">
-        <span class="blog-tag">AI Tools</span>
-        <h3>Building a Conversational Safety Coach with AI: A Case Study</h3>
-        <p>How I turned a traditional oil &amp; gas safety module into an interactive AI coaching experience.</p>
-        <div class="blog-meta">Coming soon &middot; 7 min read</div>
-      </div>
+    <div class="blog-stack">
+    <a href="blog-intake-problem.html" class="blog-card reveal">
+      <span class="blog-tag">Agile L&amp;D</span>
+      <h3>The Intake Problem: Why L&amp;D Teams Stay Stuck in Reactive Mode</h3>
+      <p>Most L&amp;D intake processes were never designed. They just accumulated. Here&rsquo;s how to fix that.</p>
+      <div class="blog-meta">5 min read</div>
+    </a>
+    <a href="building-out-loud.html" class="blog-card reveal">
+      <span class="blog-tag">Building in public</span>
+      <h3>Building Out Loud</h3>
+      <p>A running, honest log of what it&rsquo;s actually taken to build this site and the demos on it.</p>
+      <div class="blog-meta">Process log</div>
+    </a>
     </div>
   </div>
 </section>
@@ -1018,21 +1004,19 @@
 <section class="contact" id="contact">
   <div class="container">
     <div class="contact-inner">
-      <p class="section-eyebrow reveal">Let&rsquo;s Talk</p>
-      <h2 class="section-title reveal">Ready to Transform Your L&amp;D?</h2>
-      <p class="contact-body reveal">Whether you&rsquo;re struggling with chaotic intake, looking to build AI-enhanced training, or just want to explore what&rsquo;s possible &mdash; let&rsquo;s have a conversation.</p>
+      <h2 class="section-title reveal">Want to compare notes?</h2>
+      <p class="contact-body reveal">I&rsquo;m always glad to talk process, learning operations, and AI-enabled workflows. Email or find me on LinkedIn.</p>
       <div class="contact-buttons reveal">
-        <a href="mailto:kara.smart93@gmail.com" class="btn-contact-primary">&#x1F4E7; Email Me</a>
-        <a href="https://www.linkedin.com/in/kara-smart/" target="_blank" class="btn-contact-secondary">&#x1F4BC; Connect on LinkedIn</a>
+        <a href="mailto:kara.smart93@gmail.com" class="btn-contact-primary">Email</a>
+        <a href="https://www.linkedin.com/in/kara-smart/" target="_blank" rel="noopener noreferrer" class="btn-contact-secondary">LinkedIn</a>
       </div>
-      <p class="contact-note">Based in Houston &middot; Serving companies nationwide</p>
     </div>
   </div>
 </section>
 
 <footer>
-  <a href="#" class="footer-logo">Kara Smart.</a>
-  <p>&copy; 2026 Kara Smart &middot; L&amp;D Transformation &amp; AI Learning Solutions</p>
+  <a href="index.html" class="footer-logo">Kara Smart.</a>
+  <p>&copy; 2026 Kara Smart &middot; Business process analysis &amp; AI-enabled workflows</p>
 </footer>
 
 <script>
@@ -1058,6 +1042,7 @@
     drawer.classList.add('open');
     overlay.classList.add('open');
     burger.classList.add('open');
+    burger.closest('nav').classList.add('menu-open');
     burger.setAttribute('aria-expanded', 'true');
     drawer.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
@@ -1069,6 +1054,7 @@
     drawer.classList.remove('open');
     overlay.classList.remove('open');
     burger.classList.remove('open');
+    burger.closest('nav').classList.remove('menu-open');
     burger.setAttribute('aria-expanded', 'false');
     drawer.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
